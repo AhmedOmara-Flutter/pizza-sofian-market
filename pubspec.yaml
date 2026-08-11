@@ -65,6 +65,8 @@ dependencies:
   connectivity_plus: ^7.2.0
   internet_connection_checker_plus: ^3.1.1
   package_info_plus: ^10.2.0
+  firebase_messaging: ^16.3.0
+  flutter_local_notifications: ^17.0.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.14.3
@@ -72,9 +74,9 @@ dev_dependencies:
 flutter_launcher_icons:
   android: true
   ios: false
-  image_path: assets/images/logo.png
+  image_path: assets/images/ar_logo.png
   adaptive_icon_background: "#181818"
-  adaptive_icon_foreground: assets/images/logo.png
+  adaptive_icon_foreground: assets/images/ar_logo.png
 
 
   #  flutter pub get

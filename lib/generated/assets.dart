@@ -28,6 +28,7 @@ class $AssetsImagesGen {
     'assets/images/app_logo_remove.png',
   );
   final SvgGenImage apple = const SvgGenImage('assets/images/apple.svg');
+  final AssetGenImage arLogo = const AssetGenImage('assets/images/ar_logo.png');
   final SvgGenImage arrowBack = const SvgGenImage(
     'assets/images/arrow back.svg',
   );

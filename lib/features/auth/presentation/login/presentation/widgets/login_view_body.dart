@@ -81,7 +81,7 @@ class _LoginViewBodyState extends State<LoginViewBody>
                         height: 280.h,
                         width: double.infinity,
                         child: Image.asset(
-                          Assets.images.logo.path,
+                          Assets.images.arLogo.path,
                           fit: BoxFit.contain,
                         ),
                       ),

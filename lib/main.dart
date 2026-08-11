@@ -1,6 +1,8 @@
 import 'package:pizza_sofian_market/core/utils/app_imports.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'core/services/notification_services.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   initAppModule();
@@ -13,5 +15,7 @@ void main() async {
   await CacheHelper.init();
   Constants.onBoarding = await CacheHelper.getData(key: 'onBoarding') ?? false;
   Constants.uId = await CacheHelper.getData(key: 'uId') ?? '';
+  await NotificationServices.initLocal();
+  await NotificationServices.initFirebase();
   runApp(MyApp());
 }

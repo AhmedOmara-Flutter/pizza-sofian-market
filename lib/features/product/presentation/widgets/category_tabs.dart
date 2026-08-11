@@ -96,12 +96,12 @@ class _CategoryTabsState extends State<CategoryTabs>
     CategoryModel(
       id: 'فطير مشلتت مخصوص',
       name: 'فطير مشلتت مخصوص',
-      sizes: [],
+      sizes: ['صغير', 'وسط', 'كبير'],
     ),
     CategoryModel(
       id: 'وجبه عربي فطير',
       name: 'وجبه عربي فطير',
-      sizes: ['صغير', 'وسط', 'كبير'],
+      sizes: [],
     ),
     CategoryModel(
       id: 'اكسترا سفيانو',
@@ -280,11 +280,9 @@ class _CategoryTabsState extends State<CategoryTabs>
       height: 55.h,
       margin: EdgeInsets.symmetric(horizontal: 16.w),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Icon(
                 Icons.straighten_outlined,
@@ -294,7 +292,6 @@ class _CategoryTabsState extends State<CategoryTabs>
               SizedBox(width: 7.w),
               Text(
                 'الحجم',
-                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 13.sp,
                   fontWeight: FontWeight.w700,
@@ -308,7 +305,6 @@ class _CategoryTabsState extends State<CategoryTabs>
 
           Row(
             mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: sizes.map((size) {
               final isSelected =
                   selectedSizes[selectedCategory.name] == size;
@@ -343,7 +339,6 @@ class _CategoryTabsState extends State<CategoryTabs>
                     ),
                     child: Text(
                       size,
-                      textAlign: TextAlign.center,
                       style: TextStyle(
                         color: isSelected
                             ? Colors.white
@@ -363,4 +358,4 @@ class _CategoryTabsState extends State<CategoryTabs>
       ),
     );
   }
-  }
+}
