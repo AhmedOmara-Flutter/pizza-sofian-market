@@ -20,7 +20,6 @@ class _ReviewOrderViewState extends State<ReviewOrderView> {
     return BlocBuilder<CheckoutCubit, CheckoutState>(
       builder: (context, state) {
         final cubit = context.read<CheckoutCubit>();
-
         return SafeArea(
           child: LayoutBuilder(
             builder: (context, constraints) => SingleChildScrollView(
@@ -36,19 +35,16 @@ class _ReviewOrderViewState extends State<ReviewOrderView> {
                           color: AppColor.textPrimary,
                         ),
                       ),
-
                       SizedBox(height: 20.h),
-
                       OrderSummarySection(
                         totalPrice: cubit.orderEntity.cartEntity
                             .getTotalPrice()
                             .toDouble(),
                         delivery:
                         cubit.orderEntity.selectedLocationEntity!.cost,
+                        order:cubit.orderEntity,
                       ),
-
                       SizedBox(height: 10.h),
-
                       DeliveryInfoSection(
                         locationName:
                         cubit.orderEntity.selectedLocationEntity!.title,
@@ -62,9 +58,7 @@ class _ReviewOrderViewState extends State<ReviewOrderView> {
                           );
                         },
                       ),
-
                       SizedBox(height: 10.h),
-
                       if (cubit.orderEntity.isCashOnDelivery == false)
                         PaymentProofSection(),
                       OrderNotesSection(
@@ -72,9 +66,7 @@ class _ReviewOrderViewState extends State<ReviewOrderView> {
                       ),
                       const Spacer(),
                       SizedBox(height: 30.h),
-
                       OrderReviewButtonSection(),
-
                       SizedBox(height: 30.h),
                     ],
                   ),

@@ -79,7 +79,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       ),
                       const SizedBox(width: 6),
                       Text(
-                        'مواعيد الطلب: من 5:00 عصراً إلى 3:00 فجراً',
+                        'مواعيد الطلب من التطبيق: 5:00 عصراً إلى 3:00 فجراً',
                         style:StyleManager.font11Weight400,
                       ),
                       const SizedBox(width: 6),

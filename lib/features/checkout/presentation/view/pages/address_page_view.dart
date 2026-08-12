@@ -49,15 +49,11 @@ class _AddressPageViewState extends State<AddressPageView>
                         emailController: emailController,
                         addressController: addressController,
                       ),
-
                       SizedBox(height: 30.h),
-
                       const Spacer(),
-
                       BlocBuilder<CheckoutCubit, CheckoutState>(
                         builder: (context, state) {
                           final cubit = context.read<CheckoutCubit>();
-
                           return AddressButtonSection(
                             onBack: () {
                               FocusManager.instance.primaryFocus?.unfocus();

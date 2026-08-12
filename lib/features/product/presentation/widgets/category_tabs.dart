@@ -282,7 +282,6 @@ class _CategoryTabsState extends State<CategoryTabs>
       child: Row(
         children: [
           Row(
-            mainAxisSize: MainAxisSize.min,
             children: [
               Icon(
                 Icons.straighten_outlined,
@@ -290,19 +289,19 @@ class _CategoryTabsState extends State<CategoryTabs>
                 color: AppColor.mainColor,
               ),
               SizedBox(width: 7.w),
-              Text(
-                'الحجم',
-                style: TextStyle(
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w700,
-                  color: AppColor.textPrimary,
+              Center(
+                child: Text(
+                  'الحجم',
+                  style: TextStyle(
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w700,
+                    color: AppColor.textPrimary,
+                  ),
                 ),
               ),
             ],
           ),
-
-          const Spacer(),
-
+          Spacer(),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: sizes.map((size) {
@@ -337,16 +336,20 @@ class _CategoryTabsState extends State<CategoryTabs>
                         width: 1,
                       ),
                     ),
-                    child: Text(
-                      size,
-                      style: TextStyle(
-                        color: isSelected
-                            ? Colors.white
-                            : AppColor.textSecondary,
-                        fontWeight: isSelected
-                            ? FontWeight.w700
-                            : FontWeight.w500,
-                        fontSize: 12.sp,
+                    child: Center(
+                      child: Text(
+                        size,
+                        textAlign: TextAlign.center,
+                        textDirection: TextDirection.rtl,
+                        style: TextStyle(
+                          color: isSelected
+                              ? Colors.white
+                              : AppColor.textSecondary,
+                          fontWeight: isSelected
+                              ? FontWeight.w700
+                              : FontWeight.w500,
+                          fontSize: 12.sp,
+                        ),
                       ),
                     ),
                   ),

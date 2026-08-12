@@ -3,6 +3,8 @@ import 'package:dartz/dartz.dart';
 import 'package:pizza_sofian_market/core/helper_function/get_user.dart';
 import 'package:pizza_sofian_market/core/utils/app_imports.dart';
 
+import '../../../../core/services/notification_services.dart';
+
 class AuthRepoImpl implements AuthRepo {
   final AuthServices _authServices;
   final DatabaseServices _databaseServices;
@@ -38,6 +40,8 @@ class AuthRepoImpl implements AuthRepo {
         value: user.uid,
       );
       Constants.uId = user.uid;
+      await NotificationServices.saveFcmToken();
+
       return Right(userEntity);
     } catch (e) {
       if (user != null) {
@@ -65,6 +69,7 @@ print(e);
       );
 
       Constants.uId = data.uId;
+      await NotificationServices.saveFcmToken();
 
       return Right(data);
     } on Exception catch (e) {

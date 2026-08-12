@@ -50,7 +50,6 @@ class SelectLocationView extends StatelessWidget {
 
               final selected =
                   cubit.placesOptions[cubit.selectedLocationIndex!];
-
               cubit.orderEntity.selectedLocationEntity = selected;
 
               print(cubit.orderEntity.selectedLocationEntity!.title);

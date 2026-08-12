@@ -8,6 +8,7 @@ class UserModel extends UserEntity {
     required super.phone,
     required super.password,
     required super.createdAt,
+    super.fcmToken,
   });
 
   factory UserModel.fromFirebaseUser(User user) {
@@ -29,6 +30,7 @@ class UserModel extends UserEntity {
       phone: json['phone'] ?? '',
       password: json['password'] ?? '',
       createdAt: DateTime.parse(json['createdAt']),
+      fcmToken: json['fcmToken'],
     );
   }
 
@@ -40,6 +42,8 @@ class UserModel extends UserEntity {
       phone: user.phone,
       password: user.password,
       createdAt: user.createdAt,
+      fcmToken: user.fcmToken,
+
     );
   }
 
@@ -51,6 +55,8 @@ class UserModel extends UserEntity {
       phone: phone,
       password: password,
       createdAt: createdAt,
+      fcmToken: fcmToken,
+
     );
   }
 
@@ -62,6 +68,8 @@ class UserModel extends UserEntity {
       'phone': phone,
       'password': password,
       'createdAt': createdAt.toIso8601String(),
+      'fcmToken': fcmToken,
+
     };
       }
 }

@@ -13,17 +13,16 @@ part 'checkout_state.dart';
 class CheckoutCubit extends Cubit<CheckoutState> {
   CheckoutCubit(this.orderEntity, this._orderRepo, this._uploadImageRepo)
     : super(CheckoutInitial());
+
   final OrderRepo _orderRepo;
   final UploadImageRepo _uploadImageRepo;
   Timer? timer;
-
   OrderEntity orderEntity;
   final notesController = TextEditingController();
   final PageController pageController = PageController();
   int currentIndex = 0;
   bool? isCashOnDelivery;
-  int ?selectedLocationIndex;
-
+  int? selectedLocationIndex;
   final List<String> stepperTitles = ['الدفع', 'المكان', 'العنوان', 'مراجعه'];
   final List<Widget> stepperPages = const [
     PaymentMethodView(),
@@ -50,34 +49,169 @@ class CheckoutCubit extends Cubit<CheckoutState> {
       cost: 0,
     ),
     SelectedLocationEntity(
-      title: 'كفر الشوربجي',
-      subTitle: 'اختر عنوانك داخل كفر الشوربجي',
-      cost: 10,
+      title: 'آخر الإذاعة',
+      subTitle: 'اختر عنوانك داخل أخر الإذاعة',
+      cost: 0,
     ),
     SelectedLocationEntity(
-      title: 'ديما',
-      subTitle: 'اختر عنوانك داخل ديما',
-      cost: 10,
+      title: 'آخر الأستاذ',
+      subTitle: 'اختر عنوانك داخل آخر الأستاذ',
+      cost: 0,
     ),
     SelectedLocationEntity(
-      title: 'كفر المنشي',
-      subTitle: 'اختر عنوانك داخل كفر المنشي',
-      cost: 20,
+      title: 'آخر سفاجا البلد',
+      subTitle: 'اختر عنوانك داخل آخر سفاجا البلد',
+      cost: 0,
     ),
     SelectedLocationEntity(
-      title: 'كفر المنصوره',
-      subTitle: 'اختر عنوانك داخل كفر المنصوره',
-      cost: 20,
+      title: 'أول الأستاذ',
+      subTitle: 'اختر عنوانك داخل أول الأستاذ',
+      cost: 0,
     ),
     SelectedLocationEntity(
-      title: 'شبرا',
-      subTitle: 'اختر عنوانك داخل شبرا',
-      cost: 20,
+      title: 'الإسكان الشرقي',
+      subTitle: 'اختر عنوانك داخل الإسكان الشرقي',
+      cost: 0,
     ),
     SelectedLocationEntity(
-      title: 'برما',
-      subTitle: 'اختر عنوانك داخل برما',
-      cost: 25,
+      title: 'الأشغال',
+      subTitle: 'اختر عنوانك داخل الأشغال',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'الإذاعة',
+      subTitle: 'اختر عنوانك داخل الإذاعة',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'العرايشي',
+      subTitle: 'اختر عنوانك داخل العرايشي',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'العروسة',
+      subTitle: 'اختر عنوانك داخل العروسة',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'المدينة الصناعية',
+      subTitle: 'اختر عنوانك داخل المدينة الصناعية',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'اللواء',
+      subTitle: 'اختر عنوانك داخل اللواء',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'أمواج',
+      subTitle: 'اختر عنوانك داخل أمواج',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'تحت الكوبري',
+      subTitle: 'اختر عنوانك داخل تحت الكوبري',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'الدائري',
+      subTitle: 'اختر عنوانك داخل الدائري',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'زرزارة الجديدة',
+      subTitle: 'اختر عنوانك داخل زرزارة الجديدة',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'سوما باي',
+      subTitle: 'اختر عنوانك داخل سوما باي',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'سفاجا البلد',
+      subTitle: 'اختر عنوانك داخل سفاجا البلد',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'الشروق',
+      subTitle: 'اختر عنوانك داخل الشروق',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'الشارع الخلفي',
+      subTitle: 'اختر عنوانك داخل الشارع الخلفي',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'الشباب',
+      subTitle: 'اختر عنوانك داخل الشباب',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'عماير الجيش',
+      subTitle: 'اختر عنوانك داخل عماير الجيش',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'عماير الهدي',
+      subTitle: 'اختر عنوانك داخل عماير الهدي',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'عماير النيابة',
+      subTitle: 'اختر عنوانك داخل عماير النيابة',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'عماير مبارك',
+      subTitle: 'اختر عنوانك داخل عماير مبارك',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'كريازي',
+      subTitle: 'اختر عنوانك داخل كريازي',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'كيلو 14',
+      subTitle: 'اختر عنوانك داخل كيلو 14',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'كيلو 8',
+      subTitle: 'اختر عنوانك داخل كيلو 8',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'الكيلو 1',
+      subTitle: 'اختر عنوانك داخل الكيلو 1',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'الكيلو 3',
+      subTitle: 'اختر عنوانك داخل الكيلو 3',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'الكيلو 5',
+      subTitle: 'اختر عنوانك داخل الكيلو 5',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'مارينا الفولي',
+      subTitle: 'اختر عنوانك داخل مارينا الفولي',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'مركز الشباب',
+      subTitle: 'اختر عنوانك داخل مركز الشباب',
+      cost: 0,
+    ),
+    SelectedLocationEntity(
+      title: 'ميناء أبو طرطور',
+      subTitle: 'اختر عنوانك داخل ميناء أبو طرطور',
+      cost: 0,
     ),
   ];
   void changePage(int index) {
@@ -89,14 +223,17 @@ class CheckoutCubit extends Cubit<CheckoutState> {
       curve: Curves.easeInOut,
     );
   }
+
   void changeSelectedLocationIndex(int index) {
     selectedLocationIndex = index;
     emit(CheckoutChangeLocationIndex());
   }
+
   void selectShipping(bool value) {
     isCashOnDelivery = value;
     emit(CheckoutSelectShipping());
   }
+
   Future<void> addOrder(OrderEntity orderEntity) async {
     emit(CheckoutAddOrderLoading());
 
@@ -107,10 +244,10 @@ class CheckoutCubit extends Cubit<CheckoutState> {
       final result = await _orderRepo.addOrder(orderEntity);
 
       result.fold(
-            (failure) {
+        (failure) {
           emit(CheckoutAddOrderError(failure.errMessage));
         },
-            (data) {
+        (data) {
           orderEntity.id = data;
           emit(CheckoutAddOrderSuccess());
         },
@@ -128,23 +265,24 @@ class CheckoutCubit extends Cubit<CheckoutState> {
     );
 
     imageResult.fold(
-          (failure) {
+      (failure) {
         emit(CheckoutAddOrderError(failure.errMessage));
       },
-          (imageUrl) async {
+      (imageUrl) async {
         orderEntity.paymentImage = imageUrl;
 
         final result = await _orderRepo.addOrder(orderEntity);
 
         result.fold(
-              (failure) {
+          (failure) {
             emit(CheckoutAddOrderError(failure.errMessage));
           },
-              (data) {
+          (data) {
             orderEntity.id = data;
             emit(CheckoutAddOrderSuccess());
           },
         );
       },
     );
-  }  }
+  }
+}

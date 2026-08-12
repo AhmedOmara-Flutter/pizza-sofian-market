@@ -81,25 +81,24 @@ class DeliveryInfoSection extends StatelessWidget {
                   ),
                 ),
               ),
-
               /// سعر التوصيل
-              Row(
-                children: [
-                  Icon(
-                    Icons.local_shipping_outlined,
-                    size: 20.sp,
-                    color: AppColor.textSecondary,
-                  ),
-                  SizedBox(width: 8.w),
-                  Text(
-                    '$deliveryCost جنيه',
-                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                      color: AppColor.mainColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Icon(
+              //       Icons.local_shipping_outlined,
+              //       size: 20.sp,
+              //       color: AppColor.textSecondary,
+              //     ),
+              //     SizedBox(width: 8.w),
+              //     Text(
+              //       '$deliveryCost جنيه',
+              //       style: Theme.of(context).textTheme.labelMedium!.copyWith(
+              //         color: AppColor.mainColor,
+              //         fontWeight: FontWeight.w600,
+              //       ),
+              //     ),
+              //   ],
+              // ),
             ],
           ),
 

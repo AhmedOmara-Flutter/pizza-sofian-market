@@ -5,6 +5,7 @@ class UserEntity {
   final String phone;
   final String password;
   final DateTime createdAt;
+  final String? fcmToken;
 
   UserEntity({
     required this.userName,
@@ -13,6 +14,6 @@ class UserEntity {
     required this.phone,
     required this.password,
     required this.createdAt,
-
+    this.fcmToken,
   });
 }

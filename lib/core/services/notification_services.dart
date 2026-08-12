@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:pizza_sofian_market/core/services/database_services.dart';
+import 'package:pizza_sofian_market/core/services/service_locator.dart';
 
 class NotificationServices {
   static final FirebaseMessaging _firebaseMessaging =
@@ -68,6 +71,40 @@ class NotificationServices {
       payload: message.data.toString(),
     );
   }
+
+  static Future<void> saveFcmToken() async {
+    try {
+      final User? user = FirebaseAuth.instance.currentUser;
+
+      if (user == null) {
+        print('⚠️ No logged in user');
+        return;
+      }
+
+      final String? token = await _firebaseMessaging.getToken();
+
+      if (token == null || token.isEmpty) {
+        print('⚠️ FCM Token is null');
+        return;
+      }
+
+      await instance<DatabaseServices>().updateData(
+        path: 'users',
+        docId: user.uid,
+        data: {
+          'fcmToken': token,
+        },
+      );
+
+      print('======================================');
+      print('✅ FCM TOKEN SAVED');
+      print(token);
+      print('======================================');
+    } catch (e) {
+      print('❌ Error saving FCM Token: $e');
+    }
+  }
+
   static Future<void> initFirebase() async {
     await _firebaseMessaging.requestPermission(
       alert: true,
@@ -75,14 +112,38 @@ class NotificationServices {
       sound: true,
     );
 
+    // الإشعارات العامة تفضل شغالة
     await _firebaseMessaging.subscribeToTopic('all_users');
 
-    final String? token = await _firebaseMessaging.getToken();
+    // حفظ Token الخاص بالعميل
+    await saveFcmToken();
 
-    print('======================================');
-    print('FCM TOKEN:');
-    print(token);
-    print('======================================');
+    // لو Firebase غير الـToken
+    _firebaseMessaging.onTokenRefresh.listen(
+          (String token) async {
+        try {
+          final User? user = FirebaseAuth.instance.currentUser;
+
+          if (user == null) {
+            print('⚠️ No logged in user');
+            return;
+          }
+
+          await instance<DatabaseServices>().updateData(
+            path: 'users',
+            docId: user.uid,
+            data: {
+              'fcmToken': token,
+            },
+          );
+
+          print('🔄 FCM Token updated');
+          print(token);
+        } catch (e) {
+          print('❌ Error updating FCM Token: $e');
+        }
+      },
+    );
 
     FirebaseMessaging.onMessage.listen(
           (RemoteMessage message) async {
