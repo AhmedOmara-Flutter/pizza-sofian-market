@@ -25,25 +25,26 @@ class ProductDetailsSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      product.name,
-                      style: StyleManager.font16Weight700.copyWith(
-                        color: AppColor.white,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        product.name,
+                        style: StyleManager.font16Weight700.copyWith(
+                          color: AppColor.white,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 5.h),
-                    Text(
-                      '${product.price} ج.م',
-                      style: StyleManager.font16Weight600.copyWith(
-                        color: AppColor.accentColor,
+                      SizedBox(height: 5.h),
+                      Text(
+                        '${product.price} ج.م',
+                        style: StyleManager.font16Weight600.copyWith(
+                          color: AppColor.accentColor,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-
                 if (offer != null && offer!.isActive)
                   buildSimplePrice(
                     context: context,

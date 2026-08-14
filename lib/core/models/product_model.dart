@@ -80,6 +80,11 @@ class ProductModel extends ProductEntity {
   }
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
+    print('================ PRODUCT FROM JSON ================');
+    print('NAME     : ${json['name']}');
+    print('CATEGORY : ${json['category']}');
+    print('SIZE     : ${json['size']}');
+    print('====================================================');
     return ProductModel(
       id: json['id'] ?? json['product_id'] ?? '',
       name: json['name'] ?? '',
