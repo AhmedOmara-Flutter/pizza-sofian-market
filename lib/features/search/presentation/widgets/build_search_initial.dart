@@ -9,7 +9,7 @@ class BuildSearchInitial extends StatelessWidget {
       child: Column(
         children: [
           const SizedBox(height: 80),
-          SvgPicture.asset(Assets.images.searchImage.path, height: 180),
+          SvgPicture.asset(Assets.assets.images.searchImage.path, height: 180),
           const SizedBox(height: 20),
           Text(
             "ابحث عن منتجاتك المفضلة",

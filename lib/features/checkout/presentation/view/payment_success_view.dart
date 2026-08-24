@@ -24,7 +24,7 @@ class PaymentSuccessView extends StatelessWidget {
           AspectRatio(
             aspectRatio: 3,
             child: SvgPicture.asset(
-              Assets.images.paymentSuccess.path,
+              Assets.assets.images.paymentSuccess.path,
             ),
           ),
 

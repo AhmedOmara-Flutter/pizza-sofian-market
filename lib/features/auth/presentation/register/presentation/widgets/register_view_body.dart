@@ -89,7 +89,7 @@ class _RegisterViewBodyState extends State<RegisterViewBody>
                           Hero(
                             tag: 'appLogo',
                             child: Image.asset(
-                              Assets.images.logo0.path,
+                              Assets.assets.images.appLogo.path,
                               height: 220.h,
                             ),
                           ),

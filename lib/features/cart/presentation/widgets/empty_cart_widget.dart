@@ -24,7 +24,7 @@ class _EmptyCartWidgetState extends State<EmptyCartWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
 
-                Lottie.asset(Assets.json.shoppingCart.path,height:MediaQuery.sizeOf(context).height*0.3),
+                Lottie.asset(Assets.assets.json.shoppingCart.path,height:MediaQuery.sizeOf(context).height*0.3),
                 const SizedBox(height: 24),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32),

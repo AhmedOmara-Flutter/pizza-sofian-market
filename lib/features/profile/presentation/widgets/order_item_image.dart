@@ -14,7 +14,7 @@ class OrderItemImage extends StatelessWidget {
         color: AppColor.mainColor.withOpacity(.12),
       ),
       child: SvgPicture.asset(
-        Assets.images.package.path,
+        Assets.assets.images.package.path,
         width: 30.w,
         height: 30.w,
         colorFilter: const ColorFilter.mode(

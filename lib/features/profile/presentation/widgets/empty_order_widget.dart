@@ -13,7 +13,7 @@ class EmptyOrderWidget extends StatelessWidget {
         children: [
           const SizedBox(height: 40),
           Lottie.asset(
-            Assets.json.empty,
+            Assets.assets.json.empty,
             height: MediaQuery.sizeOf(context).height * 0.30,
             fit: BoxFit.fill
           ),

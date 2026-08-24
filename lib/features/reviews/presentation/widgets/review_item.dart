@@ -30,7 +30,7 @@ class ReviewItem extends StatelessWidget {
         ),
         child: ClipOval(
           child: Image.asset(
-            Assets.images.customer.path,
+            Assets.assets.images.customer.path,
             width: 50.w,
             height: 50.w,
             fit: BoxFit.cover,

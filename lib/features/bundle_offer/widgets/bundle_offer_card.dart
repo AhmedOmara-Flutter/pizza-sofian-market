@@ -293,7 +293,7 @@ class OfferPriceBadge extends StatelessWidget {
           // ===========================================================
           Positioned.fill(
             child: Image.asset(
-              Assets.images.bedgeImage.path,
+              Assets.assets.images.bedgeImage.path,
               fit: BoxFit.contain,
             ),
           ),

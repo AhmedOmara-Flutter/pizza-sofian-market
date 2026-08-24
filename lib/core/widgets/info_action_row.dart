@@ -110,7 +110,7 @@ class InfoActionRow extends StatelessWidget {
               ),
               child: Center(
                 child: SvgPicture.asset(
-                  Assets.images.search.path,
+                  Assets.assets.images.search.path,
                   width: 24.w,
                   height: 24.w,
                   colorFilter: const ColorFilter.mode(

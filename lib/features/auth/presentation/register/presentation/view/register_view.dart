@@ -46,7 +46,7 @@ class RegisterView extends StatelessWidget {
                       height: double.infinity,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage(Assets.images.sofianSplashBg.path),
+                          image: AssetImage(Assets.assets.images.splashBg.path),
                           fit: BoxFit.cover,
                         ),
                       ),

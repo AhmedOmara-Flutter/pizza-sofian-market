@@ -22,7 +22,7 @@ class ItemsCountLabel extends StatelessWidget {
            borderRadius: BorderRadius.circular(4),
            border:Border.all(color: Color(0xffEAEBEB))
          ),
-         child: SvgPicture.asset(Assets.images.filter2.path),
+         child: SvgPicture.asset(Assets.assets.images.filter2.path),
 
 
        )

@@ -38,7 +38,7 @@ class HomeHeader extends StatelessWidget {
               ),
               child: ClipOval(
                 child: Image.asset(
-                  Assets.images.customer.path,
+                  Assets.assets.images.customer.path,
                   width: 68.w,
                   height: 68.w,
                   fit: BoxFit.cover,
@@ -99,7 +99,7 @@ class HomeHeader extends StatelessWidget {
                     ),
                     child: Center(
                       child: SvgPicture.asset(
-                        Assets.images.search.path,
+                        Assets.assets.images.search.path,
                         width: 24.w,
                         height: 24.w,
                         colorFilter: const ColorFilter.mode(

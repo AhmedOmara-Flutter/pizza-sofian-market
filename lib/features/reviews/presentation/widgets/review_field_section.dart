@@ -64,7 +64,7 @@ class CustomReviewFieldSection extends StatelessWidget {
                 ),
                 child: ClipOval(
                   child: Image.asset(
-                    Assets.images.customer.path,
+                    Assets.assets.images.customer.path,
                     width: 40.w,
                     height: 40.h,
                     fit: BoxFit.cover,

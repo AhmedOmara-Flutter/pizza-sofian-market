@@ -39,7 +39,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
             ),
             child: ClipOval(
               child: Image.asset(
-                Assets.images.customer.path,
+                Assets.assets.images.customer.path,
                 width: 82.w,
                 height: 82.h,
                 fit: BoxFit.cover,

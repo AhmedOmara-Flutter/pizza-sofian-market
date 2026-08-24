@@ -179,7 +179,7 @@ class SkeletonizerBundleOfferCard extends StatelessWidget {
                   alignment: Alignment.center,
                   children: [
                     Image.asset(
-                      Assets.images.crepe.path,
+                      Assets.assets.images.crepe.path,
                       fit: BoxFit.contain,
                     ),
 

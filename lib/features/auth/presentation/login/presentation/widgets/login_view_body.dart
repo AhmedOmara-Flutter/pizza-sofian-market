@@ -79,7 +79,7 @@ class _LoginViewBodyState extends State<LoginViewBody>
                     Hero(
                       tag: 'appLogo',
                       child: Image.asset(
-                        Assets.images.logo0.path,
+                        Assets.assets.images.appLogo.path,
                         height: 220.h,
                         fit: BoxFit.fill,
                       ),

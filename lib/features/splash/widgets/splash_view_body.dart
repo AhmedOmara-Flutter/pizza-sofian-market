@@ -118,7 +118,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(Assets.images.sofianSplashBg.path),
+            image: AssetImage(Assets.assets.images.splashBg.path),
             fit: BoxFit.cover,
           ),
         ),
@@ -136,7 +136,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
                     Hero(
                       tag: 'appLogo',
                       child: Image.asset(
-                        Assets.images.logo0.path,
+                        Assets.assets.images.appLogo.path,
                         height: 250.h,
                         width: 280.w,
                         fit: BoxFit.fill,

@@ -16,7 +16,7 @@ class LoadingWidget extends StatelessWidget {
               shape: BoxShape.circle,
               border: Border.all(color: Color(0xffE6E9EA))
           ),
-          child: Lottie.asset(Assets.json.hekayaLoading)
+          child: Lottie.asset(Assets.assets.json.hekayaLoading)
       ),
     );
   }

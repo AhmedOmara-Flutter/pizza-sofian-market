@@ -9,9 +9,16 @@ import 'package:lottie/src/composition.dart';
 class Assets {
   Assets._();
 
-  static const $AssetsImagesGen images = $AssetsImagesGen();
-  static const $AssetsJsonGen json = $AssetsJsonGen();
-  static const $AssetsSongsGen songs = $AssetsSongsGen();
+  static const String shorebird = 'shorebird.yaml';
+  static const $AssetsAssetsGen assets = $AssetsAssetsGen();
+}
+
+class $AssetsAssetsGen {
+  const $AssetsAssetsGen();
+
+  final $AssetsImagesGen images = const $AssetsImagesGen();
+  final $AssetsJsonGen json = const $AssetsJsonGen();
+  final $AssetsSongsGen songs = const $AssetsSongsGen();
 }
 
 class $AssetsImagesGen {
@@ -24,11 +31,7 @@ class $AssetsImagesGen {
   final AssetGenImage appLogo = const AssetGenImage(
     'assets/images/app_logo.png',
   );
-  final AssetGenImage appLogoRemove = const AssetGenImage(
-    'assets/images/app_logo_remove.png',
-  );
   final SvgGenImage apple = const SvgGenImage('assets/images/apple.svg');
-  final AssetGenImage arLogo = const AssetGenImage('assets/images/ar_logo.png');
   final SvgGenImage arrowBack = const SvgGenImage(
     'assets/images/arrow back.svg',
   );
@@ -38,7 +41,6 @@ class $AssetsImagesGen {
   final AssetGenImage bedgeImage = const AssetGenImage(
     'assets/images/bedge_image.png',
   );
-  final AssetGenImage bg2 = const AssetGenImage('assets/images/bg2.png');
   final SvgGenImage box = const SvgGenImage('assets/images/box.svg');
   final SvgGenImage checkCircle = const SvgGenImage(
     'assets/images/checkCircle.svg',
@@ -67,7 +69,6 @@ class $AssetsImagesGen {
     'assets/images/info-circle.svg',
   );
   final SvgGenImage location = const SvgGenImage('assets/images/location.svg');
-  final AssetGenImage logo0 = const AssetGenImage('assets/images/logo0.png');
   final AssetGenImage me = const AssetGenImage('assets/images/me.png');
   final AssetGenImage message = const AssetGenImage(
     'assets/images/message.png',
@@ -100,9 +101,6 @@ class $AssetsImagesGen {
     'assets/images/shippingTracking.svg',
   );
   final AssetGenImage sights = const AssetGenImage('assets/images/sights.png');
-  final AssetGenImage sofianSplashBg = const AssetGenImage(
-    'assets/images/sofian_splash_bg.png',
-  );
   final AssetGenImage splashBg = const AssetGenImage(
     'assets/images/splash_bg.png',
   );

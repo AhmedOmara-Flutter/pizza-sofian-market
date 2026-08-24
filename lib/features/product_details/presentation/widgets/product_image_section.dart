@@ -26,7 +26,7 @@ class ProductImageSection extends StatelessWidget {
         child: Stack(
           children: [
             SvgPicture.asset(
-              Assets.images.productDetailsBg.path,
+              Assets.assets.images.productDetailsBg.path,
               width: double.infinity,
               height: double.infinity,
               fit: BoxFit.fill,

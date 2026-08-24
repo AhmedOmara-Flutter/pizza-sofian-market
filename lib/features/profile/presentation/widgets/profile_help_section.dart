@@ -31,7 +31,7 @@ class ProfileHelpSection extends StatelessWidget {
               FocusManager.instance.primaryFocus?.unfocus();
               Navigator.pushNamed(context, RouteManager.aboutUs);
             },
-            image: Assets.images.global.path,
+            image: Assets.assets.images.global.path,
           ),
           const SizedBox(height: 50),
         ],

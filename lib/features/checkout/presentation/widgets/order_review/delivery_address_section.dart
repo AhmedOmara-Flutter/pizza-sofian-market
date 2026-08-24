@@ -44,7 +44,7 @@ class DeliveryInfoSection extends StatelessWidget {
                 child: Row(
                   children: [
                     SvgPicture.asset(
-                      Assets.images.edit.path,
+                      Assets.assets.images.edit.path,
                       color: AppColor.textSecondary,
                       width: 18.w,
                       height: 18.h,
@@ -109,7 +109,7 @@ class DeliveryInfoSection extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SvgPicture.asset(
-                Assets.images.location.path,
+                Assets.assets.images.location.path,
                 color: AppColor.textSecondary,
                 width: 18.w,
                 height: 18.h,

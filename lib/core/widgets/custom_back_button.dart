@@ -32,7 +32,7 @@ class CustomBackButton extends StatelessWidget {
             ),
             child: Center(
               child: SvgPicture.asset(
-                Assets.images.arrowBack.path,
+                Assets.assets.images.arrowBack.path,
                 width: 15.w,
                 height: 15.w,
                 colorFilter: const ColorFilter.mode(

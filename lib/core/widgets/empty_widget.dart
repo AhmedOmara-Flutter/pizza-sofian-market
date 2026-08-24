@@ -8,7 +8,7 @@ class EmptyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Lottie.asset(Assets.json.empty),
+      child: Lottie.asset(Assets.assets.json.empty),
     );
   }
 }

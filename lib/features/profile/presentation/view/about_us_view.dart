@@ -87,7 +87,7 @@ class _AboutUsViewState extends State<AboutUsView> {
                           child: SizedBox(
                             height: 130.h,
                             child: Image.asset(
-                              Assets.images.aboutusLogo.path,
+                              Assets.assets.images.aboutusLogo.path,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -101,7 +101,7 @@ class _AboutUsViewState extends State<AboutUsView> {
                   title: "رؤيتنا",
                   description:
                       "أن نكون الوجهة الأولى لعشاق الكريبات والبيتزا والوجبات السريعة، مع تقديم تجربة مميزة وجودة لا تُنسى.",
-                  image: Assets.images.sights.path,
+                  image: Assets.assets.images.sights.path,
                   icon: Icons.gps_fixed,
                 ),
                 SizedBox(height: 15.h),
@@ -109,7 +109,7 @@ class _AboutUsViewState extends State<AboutUsView> {
                   title: "رسالتنا",
                   description:
                       "تقديم طعام طازج وشهي باستخدام أفضل المكونات مع خدمة سريعة وتجربة ترضي جميع عملائنا.",
-                  image: Assets.images.message.path,
+                  image: Assets.assets.images.message.path,
                   icon: Icons.remove_red_eye,
                 ),
                 Padding(
@@ -250,7 +250,7 @@ class _AboutUsViewState extends State<AboutUsView> {
                           child: CircleAvatar(
                             radius: 22.r,
                             backgroundColor: AppColor.mainColor.withOpacity(0.15),
-                            backgroundImage: AssetImage(Assets.images.me.path),
+                            backgroundImage: AssetImage(Assets.assets.images.me.path),
                           ),
                         ),
                       )
@@ -420,7 +420,7 @@ class DeveloperImageView extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.asset(
-                  Assets.images.me.path,
+                  Assets.assets.images.me.path,
                   fit: BoxFit.contain,
                 ),
               ),
