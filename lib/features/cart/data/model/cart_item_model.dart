@@ -9,9 +9,13 @@ class CartItemModel extends CartItemEntity {
     required super.quantity,
   });
 
-  factory CartItemModel.fromJson(Map<String, dynamic> json) {
+  factory CartItemModel.fromJson(
+      Map<String, dynamic> json,
+      ) {
     return CartItemModel(
-      product: ProductModel.fromJson(json['product']).toEntity(),
+      product: ProductModel
+          .fromJson(json['product'])
+          .toEntity(),
       unitPrice: (json['unitPrice'] ?? 0) as num,
       quantity: (json['quantity'] ?? 1) as int,
     );
@@ -19,13 +23,18 @@ class CartItemModel extends CartItemEntity {
 
   Map<String, dynamic> toJson() {
     return {
-      'product': ProductModel.fromEntity(product).toJson(),
+      'type': 'product',
+      'product': ProductModel
+          .fromEntity(product)
+          .toJson(),
       'quantity': quantity,
       'unitPrice': unitPrice,
     };
   }
 
-  factory CartItemModel.fromEntity(CartItemEntity entity) {
+  factory CartItemModel.fromEntity(
+      CartItemEntity entity,
+      ) {
     return CartItemModel(
       product: entity.product,
       quantity: entity.quantity,
@@ -39,6 +48,5 @@ class CartItemModel extends CartItemEntity {
       quantity: quantity,
       unitPrice: unitPrice,
     );
-
   }
 }

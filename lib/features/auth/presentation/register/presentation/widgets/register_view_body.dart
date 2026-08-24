@@ -85,17 +85,15 @@ class _RegisterViewBodyState extends State<RegisterViewBody>
                       animation: _headerAnim,
                       child: Column(
                         children: [
+                          SizedBox(width: double.infinity,),
                           Hero(
                             tag: 'appLogo',
-                            child: SizedBox(
-                              height: 280.h,
-                              width: double.infinity,
-                              child: Image.asset(
-                                Assets.images.arLogo.path,
-                                fit: BoxFit.contain,
-                              ),
+                            child: Image.asset(
+                              Assets.images.logo0.path,
+                              height: 220.h,
                             ),
                           ),
+                          SizedBox(height: 55.h),
                           Text('إنشاء حساب', style: StyleManager.font19Weight700),
                           SizedBox(height: 8.h),
                           Text(

@@ -7,6 +7,8 @@ import '../../features/favorite/app/repos/favorite_repo_impl.dart';
 import '../../features/favorite/domain/repos/favorite_repo.dart';
 import '../../features/reviews/data/repos/review_repo_impl.dart';
 import '../../features/reviews/domain/repos/review_repo.dart';
+import '../repos/bundle_offer_repo/bundle_offer_repo_impl.dart';
+import '../repos/bundle_offer_repo/bundle_offer_repo.dart';
 import '../repos/cart_repo/cart_repo.dart';
 import '../repos/cart_repo/cart_repo_impl.dart';
 import '../repos/offer_repo/offer_repo.dart';
@@ -50,4 +52,8 @@ void initAppModule() {
   instance.registerLazySingleton<CartRepo>(
         () => CartRepoImpl(instance()),
   );
+  instance.registerLazySingleton<BundleOfferRepo>(
+        () => BundleOfferRepoImpl(instance()),
+  );
+
 }

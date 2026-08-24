@@ -75,17 +75,16 @@ class _LoginViewBodyState extends State<LoginViewBody>
                 animation: _headerAnim,
                 child: Column(
                   children: [
+                    SizedBox(width: double.infinity,),
                     Hero(
                       tag: 'appLogo',
-                      child: SizedBox(
-                        height: 280.h,
-                        width: double.infinity,
-                        child: Image.asset(
-                          Assets.images.arLogo.path,
-                          fit: BoxFit.contain,
-                        ),
+                      child: Image.asset(
+                        Assets.images.logo0.path,
+                        height: 220.h,
+                        fit: BoxFit.fill,
                       ),
                     ),
+                    SizedBox(height: 55.h),
                     Text("أهلاً بيك 👋", style: StyleManager.font19Weight700),
                     SizedBox(height: 8.h),
                     Padding(

@@ -35,7 +35,9 @@ class $AssetsImagesGen {
   final SvgGenImage arrowDown = const SvgGenImage(
     'assets/images/arrow-down.svg',
   );
-  final AssetGenImage bg1 = const AssetGenImage('assets/images/bg1.png');
+  final AssetGenImage bedgeImage = const AssetGenImage(
+    'assets/images/bedge_image.png',
+  );
   final AssetGenImage bg2 = const AssetGenImage('assets/images/bg2.png');
   final SvgGenImage box = const SvgGenImage('assets/images/box.svg');
   final SvgGenImage checkCircle = const SvgGenImage(
@@ -65,7 +67,7 @@ class $AssetsImagesGen {
     'assets/images/info-circle.svg',
   );
   final SvgGenImage location = const SvgGenImage('assets/images/location.svg');
-  final AssetGenImage logo = const AssetGenImage('assets/images/logo.png');
+  final AssetGenImage logo0 = const AssetGenImage('assets/images/logo0.png');
   final AssetGenImage me = const AssetGenImage('assets/images/me.png');
   final AssetGenImage message = const AssetGenImage(
     'assets/images/message.png',
@@ -84,6 +86,9 @@ class $AssetsImagesGen {
     'assets/images/paymentSuccess.svg',
   );
   final AssetGenImage pizza = const AssetGenImage('assets/images/pizza.png');
+  final AssetGenImage pizzaSofian = const AssetGenImage(
+    'assets/images/pizza_sofian.png',
+  );
   final SvgGenImage productDetailsBg = const SvgGenImage(
     'assets/images/productDetailsBg.svg',
   );
@@ -95,7 +100,9 @@ class $AssetsImagesGen {
     'assets/images/shippingTracking.svg',
   );
   final AssetGenImage sights = const AssetGenImage('assets/images/sights.png');
-  final AssetGenImage sofian = const AssetGenImage('assets/images/sofian.png');
+  final AssetGenImage sofianSplashBg = const AssetGenImage(
+    'assets/images/sofian_splash_bg.png',
+  );
   final AssetGenImage splashBg = const AssetGenImage(
     'assets/images/splash_bg.png',
   );

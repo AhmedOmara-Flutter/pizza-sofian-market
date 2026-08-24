@@ -248,9 +248,7 @@ class _CategoryTabsState extends State<CategoryTabs>
           SizedBox(height: 10.h),
           _buildSizes(),
         ],
-
         SizedBox(height: 10.h),
-
         Expanded(
           child: TabBarView(
             controller: _tabController,
@@ -361,4 +359,5 @@ class _CategoryTabsState extends State<CategoryTabs>
       ),
     );
   }
+
 }

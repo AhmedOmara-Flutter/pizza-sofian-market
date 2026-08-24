@@ -52,7 +52,7 @@ class PaymentProofSection extends StatelessWidget {
 
                       Expanded(
                         child: Text(
-                          'يرجى إرفاق صورة واضحة لإثبات الدفع (إنستاباي، فودافون كاش، تحويل بنكي).\nرقم التحويل: 01204391511',
+                          'يرجى إرفاق صورة واضحة لإثبات الدفع.\nانستا: 01150279072\nكاش: 01014214972',
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium

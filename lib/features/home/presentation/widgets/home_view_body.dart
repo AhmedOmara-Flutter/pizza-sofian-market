@@ -8,6 +8,9 @@ import 'package:pizza_sofian_market/features/home/presentation/widgets/featured_
 import 'package:pizza_sofian_market/features/search/presentation/widgets/custom_search_field.dart';
 import '../../../../../../../core/utils/app_imports.dart';
 import '../../../../core/widgets/custom_refresh_indicator.dart';
+import '../../../bundle_offer/view/bundle_offer_section.dart';
+import '../../../bundle_offer/view_model/get_bundle_offer_cubit/get_bundle_offer_cubit.dart';
+import '../../../bundle_offer/widgets/bundle_offer_list.dart';
 import '../../../offers/presentation/view_model/offer_cubit.dart';
 import 'best_selling_products_list.dart';
 import 'featured_products_list.dart';
@@ -27,6 +30,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
       context.read<BestSellingCubit>().getSellingProducts();
       context.read<FeaturedCubit>().getFeaturedProducts();
       context.read<OfferCubit>().getOffers();
+      context.read<GetBundleOfferCubit>().getBundleOffers();
     });
   }
 
@@ -43,6 +47,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
         final bestSellingCubit = context.read<BestSellingCubit>();
         final featuredCubit = context.read<FeaturedCubit>();
         final offerCubit = context.read<OfferCubit>();
+        final bundleOfferCubit = context.read<GetBundleOfferCubit>();
+        bundleOfferCubit.getBundleOffers();
         bestSellingCubit.getSellingProducts();
         featuredCubit.getFeaturedProducts();
         offerCubit.getOffers();
@@ -108,9 +114,14 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                 OfferCarouselList(),
                 FeaturedProductsSection(),
                 FeaturedProductsList(),
-                SizedBox(height: 10),
+                if(context.watch<GetBundleOfferCubit>().bundleOffers.isNotEmpty)
+                  Column(
+                    children: [
+                      BundleOfferSection(),
+                      BundleOfferList(),
+                    ],
+                  ),
                 BestSellingSection(),
-                SizedBox(height: 10),
               ],
             ),
           ),

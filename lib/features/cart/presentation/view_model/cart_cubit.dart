@@ -1,13 +1,15 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
-import 'package:pizza_sofian_market/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:meta/meta.dart';
+import '../../../../core/entities/bundle_offer_entity.dart';
 import '../../../../core/entities/offer_entity.dart';
 import '../../../../core/entities/product_entity.dart';
 import '../../../../core/helper_function/price_helper.dart';
 import '../../../../core/repos/cart_repo/cart_repo.dart';
 import '../../../offers/presentation/view_model/offer_cubit.dart';
+import '../../domain/entities/bundle_offer_cart_item_entity.dart';
 import '../../domain/entities/cart_entity.dart';
+import '../../domain/entities/cart_item_entity.dart';
 part 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
@@ -16,9 +18,9 @@ class CartCubit extends Cubit<CartState> {
   final CartRepo cartRepo;
 
   CartEntity cart = CartEntity(cartItems: []);
-
   Timer? _saveTimer;
   StreamSubscription<CartEntity>? _cartSubscription;
+
 
   Future<void> loadCart(String userId) async {
     await _cartSubscription?.cancel();
@@ -59,7 +61,8 @@ class CartCubit extends Cubit<CartState> {
       ProductEntity product,
       OfferEntity? offer,
       String userId,
-      ) async {
+      ) async
+  {
     final price = getFinalPrice(
       product: product,
       offer: offer,
@@ -91,7 +94,8 @@ class CartCubit extends Cubit<CartState> {
   Future<void> deleteCartItem(
       CartItemEntity cartItem,
       String userId,
-      ) async {
+      ) async
+  {
     cart = cart.removeItem(cartItem);
     emit(CartRemoved());
 
@@ -101,7 +105,8 @@ class CartCubit extends Cubit<CartState> {
   Future<void> increaseCartItem(
       CartItemEntity item,
       String userId,
-      ) async {
+      ) async
+  {
     item.increase();
 
     emit(CartIncrease());
@@ -112,7 +117,8 @@ class CartCubit extends Cubit<CartState> {
   Future<void> decreaseCartItem(
       CartItemEntity item,
       String userId,
-      ) async {
+      ) async
+  {
     item.decrease();
 
     emit(CartDecrease());
@@ -120,7 +126,8 @@ class CartCubit extends Cubit<CartState> {
     _scheduleSave(userId);
   }
 
-  Future<void> saveCart(String userId) async {
+  Future<void> saveCart(String userId) async
+  {
     try {
       await cartRepo.saveCart(
         userId: userId,
@@ -131,22 +138,11 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  Future<void> clearCart(String userId) async {
-    cart = CartEntity(cartItems: []);
-
-    emit(CartRemoved());
-
-    try {
-      await cartRepo.clearCart(userId);
-    } catch (e) {
-      print(e);
-    }
-  }
-
   num getCartItemPrice(
       CartItemEntity item,
       OfferCubit offerCubit,
-      ) {
+      )
+  {
     final offer = offerCubit.offersMap[item.product.id];
 
     final unitPrice = getFinalPrice(
@@ -155,6 +151,36 @@ class CartCubit extends Cubit<CartState> {
     );
 
     return unitPrice * item.quantity;
+  }
+
+  Future<void> addBundleOffer(
+      BundleOfferEntity bundleOffer,
+      String userId,
+      ) async
+  {
+    final index = cart.cartItems.indexWhere(
+          (item) =>
+      item is BundleOfferCartItemEntity &&
+          item.bundleOffer.id == bundleOffer.id,
+    );
+
+    if (index != -1) {
+      final bundleItem =
+      cart.cartItems[index] as BundleOfferCartItemEntity;
+
+      bundleItem.increase();
+    } else {
+      cart = cart.addItem(
+        BundleOfferCartItemEntity(
+          bundleOffer: bundleOffer,
+          quantity: 1,
+        ),
+      );
+    }
+
+    emit(CartAdded());
+
+    _scheduleSave(userId);
   }
 
   @override

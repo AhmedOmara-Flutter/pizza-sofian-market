@@ -43,34 +43,12 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
   // Future<void> _startApp() async {
   //   try {
-  //     final appUpdateService = AppUpdateService();
-  //
-  //     final results = await Future.wait([
+  //     await Future.wait([
   //       NotificationServices.initLocal().then((_) {
   //         return NotificationServices.initFirebase();
   //       }),
-  //       appUpdateService.initialize(),
   //     ]);
-  //
-  //     debugPrint('🟢 Notifications + Remote Config DONE');
-  //
-  //     final forceUpdate =
-  //     await appUpdateService.isForceUpdateRequired();
-  //
-  //     if (!mounted) return;
-  //
-  //     if (forceUpdate) {
-  //       Navigator.pushReplacement(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (_) => ForceUpdateView(
-  //             downloadUrl: appUpdateService.downloadUrl,
-  //           ),
-  //         ),
-  //       );
-  //
-  //       return;
-  //     }
+  //     debugPrint('🟢 Notifications DONE');
   //   } catch (e) {
   //     debugPrint('🔴 Splash initialization error: $e');
   //   }
@@ -94,17 +72,11 @@ class _SplashViewBodyState extends State<SplashViewBody>
   //   }
   // }
   Future<void> _startApp() async {
-    try {
-      await Future.wait([
-        NotificationServices.initLocal().then((_) {
-          return NotificationServices.initFirebase();
-        }),
-      ]);
+    // نبدأ تهيئة الإشعارات في الخلفية بدون انتظارها
+    _initializeNotifications();
 
-      debugPrint('🟢 Notifications DONE');
-    } catch (e) {
-      debugPrint('🔴 Splash initialization error: $e');
-    }
+    // وقت بسيط جدًا لظهور الـ Splash والأنيميشن
+    await Future.delayed(const Duration(milliseconds: 1500));
 
     if (!mounted) return;
 
@@ -118,12 +90,23 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
       Navigator.pushReplacementNamed(
         context,
-        isLogged
-            ? RouteManager.home
-            : RouteManager.login,
+        isLogged ? RouteManager.home : RouteManager.login,
       );
     }
   }
+
+  Future<void> _initializeNotifications() async {
+    try {
+      await NotificationServices.initLocal();
+      await NotificationServices.initFirebase();
+
+      debugPrint('🟢 Notifications DONE');
+    } catch (e) {
+      debugPrint('🔴 Notification initialization error: $e');
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -135,87 +118,85 @@ class _SplashViewBodyState extends State<SplashViewBody>
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(Assets.images.splashBg.path),
+            image: AssetImage(Assets.images.sofianSplashBg.path),
             fit: BoxFit.cover,
           ),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: 100.h, width: 100.w),
+            SizedBox(height: 150.h,width: double.infinity,),
             FadeTransition(
               opacity: logoFade,
               child: SlideTransition(
                 position: logoSlide,
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Hero(
                       tag: 'appLogo',
                       child: Image.asset(
-                        Assets.images.arLogo.path,
-                        height: 450.h,
-                        width: double.infinity,
+                        Assets.images.logo0.path,
+                        height: 250.h,
+                        width: 280.w,
+                        fit: BoxFit.fill,
                       ),
                     ),
-                    Positioned(
-                      bottom: 60.h,
-                      child: Text.rich(
-                        TextSpan(
-                          children: [
-                            WidgetSpan(
-                              alignment: PlaceholderAlignment.middle,
-                              child: Icon(
-                                Icons.star_rounded,
-                                color: AppColor.mainColor,
-                                size: 16.sp,
-                              ),
+                    SizedBox(height: 25.h),
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: Icon(
+                              Icons.star_rounded,
+                              color: AppColor.mainColor,
+                              size: 16.sp,
                             ),
-                            const TextSpan(text: '  '),
-                            TextSpan(
-                              text: 'سفيان الخطير للبيتزا والفطير',
-                              style: StyleManager.font14Weight600.copyWith(
-                                color: AppColor.mainColor,
-                              ),
+                          ),
+                          const TextSpan(text: '  '),
+                          TextSpan(
+                            text: 'طعم على أصوله.. وحكاية في كل لقمة',
+                            style: StyleManager.font14Weight600.copyWith(
+                              color: AppColor.mainColor,
                             ),
-                            const TextSpan(text: '  '),
-                            WidgetSpan(
-                              alignment: PlaceholderAlignment.middle,
-                              child: Icon(
-                                Icons.star_rounded,
-                                color: AppColor.mainColor,
-                                size: 16.sp,
-                              ),
+                          ),
+                          const TextSpan(text: '  '),
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: Icon(
+                              Icons.star_rounded,
+                              color: AppColor.mainColor,
+                              size: 16.sp,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),
             ),
-            SafeArea(
-              child: Padding(
-                padding: EdgeInsets.all(20.r),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CircularProgressIndicator(
-                      color: AppColor.mainColor,
-                      strokeWidth: 3.w,
+            SizedBox(height: 165.h),
+            Padding(
+              padding: EdgeInsets.all(20.r),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(
+                    color: AppColor.mainColor,
+                    strokeWidth: 3.w,
+                  ),
+                  SizedBox(height: 10.h),
+                  Text(
+                    'جاري التحميل',
+                    style: StyleManager.font14Weight600.copyWith(
+                      color: AppColor.white,
                     ),
-                    SizedBox(height: 10.h),
-                    Text(
-                      'جاري التحميل',
-                      style: StyleManager.font14Weight600.copyWith(
-                        color: AppColor.white,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ),
+            )
           ],
         ),
       ),

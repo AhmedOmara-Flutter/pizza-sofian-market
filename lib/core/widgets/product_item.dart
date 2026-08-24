@@ -36,11 +36,14 @@ class ProductItem extends StatelessWidget {
         context.read<ProductCubit>().increaseSellingCount(product.id);
       },
       child: Container(
-        decoration: ShapeDecoration(
+        decoration: BoxDecoration(
           color: AppColor.card,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24.r),
+          borderRadius: BorderRadius.circular(24.r),
+          border: Border.all(
+            color: AppColor.mainColor.withOpacity(.1),
+            width: 1,
           ),
+
         ),
         child: Stack(
           children: [

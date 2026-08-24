@@ -53,13 +53,9 @@ class ProductDetailsSection extends StatelessWidget {
                   ),
               ],
             ),
-
             SizedBox(height: 10.h),
-
             RatingAndReviews(product: product),
-
             SizedBox(height: 15.h),
-
             Text(
               product.description,
               style: Theme.of(context).textTheme.titleSmall!.copyWith(

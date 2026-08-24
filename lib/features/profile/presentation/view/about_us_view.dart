@@ -1,6 +1,7 @@
 import 'package:pizza_sofian_market/core/utils/app_imports.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../../../../core/helper_function/make_call_function.dart';
 import '../widgets/values_card.dart';
 
 class AboutUsView extends StatefulWidget {
@@ -200,23 +201,39 @@ class _AboutUsViewState extends State<AboutUsView> {
                       SizedBox(width: 14.w),
 
                       Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'تم تطوير التطبيق بواسطة',
-                              style:StyleManager.font12Weight500,
-                            ),
-                            SizedBox(height: 2.h),
-                            Text(
-                              'Eng. Ahmed Omara',
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.bold,
-                                color: AppColor.mainColor,
+                        child: GestureDetector(
+                          onTap: (){
+                            makePhoneCall('010984311538');
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'تم تطوير التطبيق بواسطة',
+                                style:StyleManager.font12Weight500,
                               ),
-                            ),
-                          ],
+                              SizedBox(height: 2.h),
+                              Text(
+                                'Eng. Ahmed Omara',
+                                style: TextStyle(
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColor.mainColor,
+                                ),
+                              ),
+                        
+                              Row(
+                                children: [
+                                  Icon(Icons.phone,color: AppColor.mainColor,size: 12.sp,),
+                                  SizedBox(width: 5.w),
+                                  Text(
+                                    '01098431538',
+                                    style:StyleManager.font12Weight500
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       GestureDetector(

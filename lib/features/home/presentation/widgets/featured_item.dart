@@ -40,7 +40,7 @@ class FeaturedItem extends StatelessWidget {
                   color: AppColor.card,
                   borderRadius: BorderRadius.circular(22.r),
                   border: Border.all(
-                    color: Colors.white.withOpacity(.05),
+                    color: AppColor.mainColor.withOpacity(.1),
                     width: 1,
                   ),
                   boxShadow: [

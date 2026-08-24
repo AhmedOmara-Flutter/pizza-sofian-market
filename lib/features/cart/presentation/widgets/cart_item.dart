@@ -4,6 +4,7 @@ import 'package:pizza_sofian_market/core/utils/app_imports.dart';
 import 'package:pizza_sofian_market/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:pizza_sofian_market/features/cart/presentation/widgets/cart_item_image.dart';
 import 'package:pizza_sofian_market/features/cart/presentation/widgets/quality_control.dart';
+import '../../domain/entities/bundle_offer_cart_item_entity.dart';
 import '../view_model/cart_cubit.dart';
 
 class CartItem extends StatelessWidget {
@@ -40,7 +41,11 @@ class CartItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
+          cartItemEntity is BundleOfferCartItemEntity
+              ? CartItemImage(
+            image: cartItemEntity.product.image!,
+          )
+              : GestureDetector(
             onTap: () {
               Navigator.pushNamed(
                 context,
