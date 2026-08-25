@@ -17,7 +17,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
 
-version: 1.0.1+2
+version: 1.0.3+4
 
 environment:
   sdk: ^3.10.3
@@ -87,6 +87,10 @@ flutter_launcher_icons:
 
   #  flutter pub get
   #  flutter pub run flutter_launcher_icons:main
+  #  shorebird patch --platforms=android --release-version=1.0.1+2
+  #  shorebird release android --artifact apk --target-platform android-arm64 --flutter-version=3.38.4
+
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
