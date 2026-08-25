@@ -31,6 +31,9 @@ class $AssetsImagesGen {
   final AssetGenImage appLogo = const AssetGenImage(
     'assets/images/app_logo.png',
   );
+  final AssetGenImage appLogo2 = const AssetGenImage(
+    'assets/images/app_logo2.png',
+  );
   final SvgGenImage apple = const SvgGenImage('assets/images/apple.svg');
   final SvgGenImage arrowBack = const SvgGenImage(
     'assets/images/arrow back.svg',

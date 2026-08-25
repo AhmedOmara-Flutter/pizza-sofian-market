@@ -136,7 +136,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
                     Hero(
                       tag: 'appLogo',
                       child: Image.asset(
-                        Assets.assets.images.appLogo.path,
+                        Assets.assets.images.appLogo2.path,
                         height: 250.h,
                         width: 280.w,
                         fit: BoxFit.fill,
