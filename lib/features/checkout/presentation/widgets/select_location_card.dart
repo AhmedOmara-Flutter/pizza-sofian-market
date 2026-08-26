@@ -95,25 +95,25 @@ class SelectLocationCard extends StatelessWidget {
               ),
             ),
 
-           // SizedBox(width: 10.w),
+           SizedBox(width: 10.w),
 
-            // Container(
-            //   padding: EdgeInsets.symmetric(
-            //     horizontal: 10.w,
-            //     vertical: 6.h,
-            //   ),
-            //   decoration: BoxDecoration(
-            //     color: AppColor.mainColor.withOpacity(.08),
-            //     borderRadius: BorderRadius.circular(10.r),
-            //   ),
-            //   child: Text(
-            //     '${item.cost.toStringAsFixed(0)} ج.م',
-            //     style: Theme.of(context).textTheme.titleSmall!.copyWith(
-            //       color: AppColor.mainColor,
-            //       fontWeight: FontWeight.bold,
-            //     ),
-            //   ),
-            // ),
+            Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.w,
+                vertical: 6.h,
+              ),
+              decoration: BoxDecoration(
+                color: AppColor.mainColor.withOpacity(.08),
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              child: Text(
+                '${item.cost.toStringAsFixed(0)} ج.م',
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: AppColor.mainColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ],
         ),
       ),

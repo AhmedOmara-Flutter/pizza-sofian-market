@@ -11,6 +11,8 @@ import '../repos/bundle_offer_repo/bundle_offer_repo_impl.dart';
 import '../repos/bundle_offer_repo/bundle_offer_repo.dart';
 import '../repos/cart_repo/cart_repo.dart';
 import '../repos/cart_repo/cart_repo_impl.dart';
+import '../repos/location_repo/selected_location_repo.dart';
+import '../repos/location_repo/selected_location_repo_impl.dart';
 import '../repos/offer_repo/offer_repo.dart';
 import '../repos/offer_repo/offer_repo_impl.dart';
 import '../repos/order_repo/order_repo_impl.dart';
@@ -54,6 +56,9 @@ void initAppModule() {
   );
   instance.registerLazySingleton<BundleOfferRepo>(
         () => BundleOfferRepoImpl(instance()),
+  );
+  instance.registerLazySingleton<SelectedLocationRepo>(
+        () => SelectedLocationRepoImpl(instance()),
   );
 
 }

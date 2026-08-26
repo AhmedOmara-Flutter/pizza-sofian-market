@@ -9,19 +9,95 @@ class SelectLocationView extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.watch<CheckoutCubit>();
 
+    if (cubit.state is CheckoutLocationsLoading) {
+      return const Center(
+        child: CircularProgressIndicator(
+          color: AppColor.mainColor,
+        ),
+      );
+    }
+
+    if (cubit.state is CheckoutLocationsError) {
+      return Center(
+        child: Text(
+          'حدث خطأ أثناء تحميل أماكن التوصيل',
+          style: Theme.of(context).textTheme.bodyMedium,
+        ),
+      );
+    }
+
     return SafeArea(
       child: Column(
         children: [
           Expanded(
-            child: ListView.separated(
-              padding: EdgeInsets.only(bottom: 20.h),
-              physics:BouncingScrollPhysics(),
+            child: cubit.placesOptions.isEmpty
+                ? Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Location Icon
+                    Container(
+                      width: 90,
+                      height: 90,
+                      decoration: BoxDecoration(
+                        color: AppColor.mainColor.withOpacity(0.12),
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: AppColor.mainColor.withOpacity(0.25),
+                          width: 1.5,
+                        ),
+                      ),
+                      child: const Icon(
+                        Icons.location_off_rounded,
+                        size: 44,
+                        color: AppColor.mainColor,
+                      ),
+                    ),
+
+                    const SizedBox(height: 22),
+
+                    // Title
+                    Text(
+                      'لا توجد أماكن توصيل',
+                      style: StyleManager.font16Weight700.copyWith(
+                        color: AppColor.textPrimary,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    // Description
+                    Text(
+                      'عذرًا، لا توجد مناطق توصيل متاحة حاليًا.\n'
+                          'يمكنك المحاولة مرة أخرى لاحقًا.',
+                      style: StyleManager.font13Weight600.copyWith(
+                        color: AppColor.textSecondary,
+                        height: 1.6,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+            )
+                : ListView.separated(
+              padding: EdgeInsets.only(
+                bottom: 20.h,
+              ),
+              physics: const BouncingScrollPhysics(),
               itemCount: cubit.placesOptions.length,
-              separatorBuilder: (_, _) =>  SizedBox(height: 12.h),
+              separatorBuilder: (_, _) => SizedBox(
+                height: 10.h,
+              ),
               itemBuilder: (context, index) {
                 final item = cubit.placesOptions[index];
+
                 return SelectLocationCard(
-                  isSelected: cubit.selectedLocationIndex == index,
+                  isSelected:
+                  cubit.selectedLocationIndex == index,
                   item: item,
                   onTap: () {
                     cubit.changeSelectedLocationIndex(index);
@@ -30,32 +106,31 @@ class SelectLocationView extends StatelessWidget {
               },
             ),
           ),
+
           CustomButton(
             onPressed: () {
-              if (cubit.selectedLocationIndex ==null) {
+              if (cubit.selectedLocationIndex == null) {
                 AppVibration.heavy();
                 AppSounds.playClickSound('click_error.wav');
 
                 customShowSnakeBar(
                   context,
                   color: AppColor.red,
-                  label: 'يرجي اختيار مكان التوصيل',
+                  label: 'يرجى اختيار مكان التوصيل',
                 );
-                return;
-              }
 
-              if (cubit.selectedLocationIndex == null) {
                 return;
               }
 
               final selected =
-                  cubit.placesOptions[cubit.selectedLocationIndex!];
+              cubit.placesOptions[cubit.selectedLocationIndex!];
+
               cubit.orderEntity.selectedLocationEntity = selected;
 
-              print(cubit.orderEntity.selectedLocationEntity!.title);
-              print(cubit.orderEntity.selectedLocationEntity!.cost);
               cubit.pageController.nextPage(
-                duration: const Duration(milliseconds: 300),
+                duration: const Duration(
+                  milliseconds: 300,
+                ),
                 curve: Curves.easeInOut,
               );
             },
@@ -64,6 +139,7 @@ class SelectLocationView extends StatelessWidget {
               style: Theme.of(context).textTheme.labelSmall,
             ),
           ),
+
           SizedBox(height: 30.h),
         ],
       ),

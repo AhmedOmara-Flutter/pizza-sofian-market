@@ -89,48 +89,48 @@ class OrderSummarySection extends StatelessWidget {
               ),
             ),
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Text(
-          //           'المجموع الفرعي :',
-          //           style: Theme.of(context).textTheme.titleSmall!.copyWith(
-          //             color: AppColor.textSecondary,
-          //           ),
-          //         ),
-          //         SizedBox(height: 8.h),
-          //         Text(
-          //           'التوصيل :',
-          //           style: Theme.of(context).textTheme.titleSmall!.copyWith(
-          //             color: AppColor.textSecondary,
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //     Column(
-          //       crossAxisAlignment: CrossAxisAlignment.end,
-          //       children: [
-          //         Text(
-          //           '$totalPrice جنيه',
-          //           style: Theme.of(context).textTheme.labelMedium!.copyWith(
-          //             color: AppColor.textPrimary,
-          //           ),
-          //         ),
-          //         SizedBox(height: 8.h),
-          //         Text(
-          //           '$delivery جنيه',
-          //           style: Theme.of(context).textTheme.titleMedium!.copyWith(
-          //             color: AppColor.mainColor,
-          //             fontWeight: FontWeight.w600,
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ],
-          // ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'المجموع الفرعي :',
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      color: AppColor.textSecondary,
+                    ),
+                  ),
+                  SizedBox(height: 8.h),
+                  Text(
+                    'التوصيل :',
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      color: AppColor.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    '$totalPrice جنيه',
+                    style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                      color: AppColor.textPrimary,
+                    ),
+                  ),
+                  SizedBox(height: 8.h),
+                  Text(
+                    '$delivery جنيه',
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: AppColor.mainColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
           Padding(
             padding: EdgeInsets.only(
               top: 8.h,

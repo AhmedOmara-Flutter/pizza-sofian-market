@@ -1,41 +1,61 @@
-import 'package:pizza_sofian_market/core/entities/selected_location_entity.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class SelectedLocationModel extends SelectedLocationEntity {
+import '../entities/selected_location_entity.dart';
+
+class SelectedLocationModel {
+  final String id;
+  final String title;
+  final String subTitle;
+  final double cost;
+  final DateTime createdAt;
+
   const SelectedLocationModel({
-    required super.title,
-    required super.subTitle,
-    required super.cost,
+    required this.id,
+    required this.title,
+    required this.subTitle,
+    required this.cost,
+    required this.createdAt,
   });
 
-  factory SelectedLocationModel.fromJson(Map<String, dynamic> json) {
+  factory SelectedLocationModel.fromJson(Map<String, dynamic> json,) {
     return SelectedLocationModel(
-      title: (json['title'] ?? '').toString(),
-      subTitle: (json['subTitle'] ?? '').toString(),
-      cost: (json['cost'] ?? 0).toDouble(),
+      id: json['id'] ?? '',
+      title: json['title'] ?? '',
+      subTitle: json['subTitle'] ?? '',
+      cost: (json['cost'] as num?)?.toDouble() ?? 0.0,
+      createdAt: json['createdAt'] is Timestamp
+          ? (json['createdAt'] as Timestamp).toDate()
+          : DateTime.fromMillisecondsSinceEpoch(0),
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'title': title,
-      'subTitle': subTitle,
-      'cost': cost,
-    };
-  }
-
-  factory SelectedLocationModel.fromEntity(SelectedLocationEntity entity) {
+  factory SelectedLocationModel.fromEntity(SelectedLocationEntity entity,) {
     return SelectedLocationModel(
+      id: entity.id,
       title: entity.title,
       subTitle: entity.subTitle,
       cost: entity.cost,
+      createdAt: entity.createdAt,
     );
   }
 
   SelectedLocationEntity toEntity() {
     return SelectedLocationEntity(
+      id: id,
       title: title,
       subTitle: subTitle,
       cost: cost,
+      createdAt: createdAt,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'subTitle': subTitle,
+      'cost': cost,
+      'createdAt': Timestamp.fromDate(createdAt),
+    };
   }
 }
