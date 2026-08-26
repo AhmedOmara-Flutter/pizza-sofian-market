@@ -100,214 +100,174 @@ class OfferCarouselItem extends StatelessWidget {
               ),
             ),
 
-            Padding(
-                padding: EdgeInsets.all(18.w),
-                child: Row(
-                  children: [
-                  Expanded(
-                  flex: 6,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                  Container(
-                  padding: EdgeInsets.symmetric(
-                  horizontal: 14.w,
-                    vertical: 7.h,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColor.mainColor,
-                    borderRadius:
-                    BorderRadius.circular(30.r),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColor.mainColor
-                            .withOpacity(.25),
-                        blurRadius: 10.r,
-                        offset: Offset(
-                          0,
-                          4.h,
-                        ),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.local_offer_rounded,
-                        color: Colors.white,
-                        size: 14.sp,
-                      ),
-                      SizedBox(width: 5.w),
-                      Text(
-                        "خصم ${offer.discountPercentage}%",
-                        style: StyleManager
-                            .font11Weight400
-                            .copyWith(
-                          color: Colors.white,
-                          fontWeight:
-                          FontWeight.w700,
-                          letterSpacing: .3,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                  Padding(
+                    padding: EdgeInsets.all(18.w),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 6,
+                          child: SizedBox(
+                            height: double.infinity,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // =================================================
+                                // DISCOUNT
+                                // =================================================
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 14.w,
+                                    vertical: 7.h,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColor.mainColor,
+                                    borderRadius: BorderRadius.circular(30.r),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: AppColor.mainColor.withOpacity(.25),
+                                        blurRadius: 10.r,
+                                        offset: Offset(
+                                          0,
+                                          4.h,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Icons.local_offer_rounded,
+                                        color: Colors.white,
+                                        size: 14.sp,
+                                      ),
 
-                SizedBox(height: 14.h),
+                                      SizedBox(width: 5.w),
 
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 14.w,
-                    vertical: 10.h,
-                  ),
-                  decoration: BoxDecoration(
-                    color:
-                    AppColor.card.withOpacity(.75),
-                    borderRadius:
-                    BorderRadius.circular(14.r),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment:
-                    CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        offer.name,
-                        style: StyleManager
-                            .font18Weight700
-                            .copyWith(
-                          color: Colors.white,
-                        ),
-                      ),
+                                      Text(
+                                        "خصم ${offer.discountPercentage}%",
+                                        style: StyleManager.font11Weight400.copyWith(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w700,
+                                          letterSpacing: .3,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
 
-                      SizedBox(height: 6.h),
+                                // =================================================
+                                // OFFER INFO
+                                // =================================================
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 14.w,
+                                    vertical: 10.h,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColor.card.withOpacity(.75),
+                                    borderRadius: BorderRadius.circular(14.r),
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        offer.name,
+                                        style: StyleManager.font18Weight700.copyWith(
+                                          color: Colors.white,
+                                        ),
+                                      ),
 
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "${offer.priceAfterDiscount} ج.م",
-                            style: StyleManager
-                                .font19Weight700
-                                .copyWith(
-                              color: AppColor.mainColor,
+                                      SizedBox(height: 6.h),
+
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            "${offer.priceAfterDiscount} ج.م",
+                                            style: StyleManager.font19Weight700.copyWith(
+                                              color: AppColor.mainColor,
+                                            ),
+                                          ),
+
+                                          SizedBox(width: 8.w),
+
+                                          Text(
+                                            "${offer.priceBeforeDiscount} ج.م",
+                                            style: StyleManager.font13Weight400.copyWith(
+                                              color: AppColor.textSecondary,
+                                              decoration: TextDecoration.lineThrough,
+                                              decorationColor: AppColor.textSecondary,
+                                              decorationThickness: 1.4,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+                                // =================================================
+                                // ORDER BUTTON
+                                // =================================================
+                                InkWell(
+                                  borderRadius: BorderRadius.circular(30.r),
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      RouteManager.productDetails,
+                                      arguments: offer.productId,
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 18.w,
+                                      vertical: 11.h,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: AppColor.mainColor,
+                                      borderRadius: BorderRadius.circular(30.r),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColor.mainColor.withOpacity(.35),
+                                          blurRadius: 12.r,
+                                          offset: Offset(
+                                            0,
+                                            6.h,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          "اطلب الآن",
+                                          style: StyleManager.font14Weight600.copyWith(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+
+                                        SizedBox(width: 8.w),
+
+                                        Icon(
+                                          Icons.arrow_forward_rounded,
+                                          color: Colors.white,
+                                          size: 18.sp,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-
-                          SizedBox(width: 8.w),
-
-                          Text(
-                            "${offer.priceBeforeDiscount} ج.م",
-                            style: StyleManager
-                                .font13Weight400
-                                .copyWith(
-                              color:
-                              AppColor.textSecondary,
-                              decoration:
-                              TextDecoration
-                                  .lineThrough,
-                              decorationColor:
-                              AppColor
-                                  .textSecondary,
-                              decorationThickness: 1.4,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-
-                      const Spacer(),
-
-                      InkWell(
-                        borderRadius:
-                        BorderRadius.circular(30.r),
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            RouteManager.productDetails,
-                            arguments: offer.productId,
-                          );
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 18.w,
-                            vertical: 11.h,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColor.mainColor,
-                            borderRadius:
-                            BorderRadius.circular(30.r),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColor.mainColor
-                                    .withOpacity(.35),
-                                blurRadius: 12.r,
-                                offset: Offset(
-                                  0,
-                                  6.h,
-                                ),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisSize:
-                            MainAxisSize.min,
-                            children: [
-                              Text(
-                                "اطلب الآن",
-                                style: StyleManager
-                                    .font14Weight600
-                                    .copyWith(
-                                  color: Colors.white,
-                                ),
-                              ),
-
-                              SizedBox(width: 8.w),
-
-                              Icon(
-                                Icons
-                                    .arrow_forward_rounded,
-                                color: Colors.white,
-                                size: 18.sp,
-                              ),
-                            ],
-                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  ),
-                  ],
-                ),
-            ),
-                  // Positioned(
-                  //   top: -25.h,
-                  //   right: -25.w,
-                  //   child: Container(
-                  //     width: 90.w,
-                  //     height: 90.w,
-                  //     decoration: BoxDecoration(
-                  //       color: Colors.white.withOpacity(.06),
-                  //       shape: BoxShape.circle,
-                  //     ),
-                  //   ),
-                  // ),
-                  //
-                  // Positioned(
-                  //   bottom: -30.h,
-                  //   left: -30.w,
-                  //   child: Container(
-                  //     width: 120.w,
-                  //     height: 120.w,
-                  //     decoration: BoxDecoration(
-                  //       color: Colors.white.withOpacity(.04),
-                  //       shape: BoxShape.circle,
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),

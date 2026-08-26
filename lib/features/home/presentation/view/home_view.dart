@@ -1,5 +1,6 @@
 import 'package:pizza_sofian_market/core/utils/app_imports.dart';
 
+import '../../../../core/widgets/falling_flowers.dart';
 import '../widgets/home_view_body.dart';
 
 class HomeView extends StatelessWidget {
@@ -7,21 +8,28 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const HomeViewBody();
-    // return Stack(
-    //   children: [
-    //     const HomeViewBody(),
-    //
-    //     const Positioned.fill(
-    //       child: MawlidCelebrationOverlay(),
-    //     ),
-    //   ],
-    // );
+    return HomeViewBody();
   }
 }
 
 
-//  @override
+
+//import 'package:pizza_sofian_market/core/utils/app_imports.dart';
+//
+// import '../../../../core/widgets/falling_flowers.dart';
+// import '../../../../core/widgets/mawlid_celebration.dart';
+// import '../widgets/home_view_body.dart';
+//
+// class HomeView extends StatefulWidget {
+//   const HomeView({super.key,});
+//
+//   @override
+//   State<HomeView> createState() => _HomeViewState();
+// }
+//
+// class _HomeViewState extends State<HomeView> {
+//
+//   @override
 //   void initState() {
 //     super.initState();
 //
@@ -29,3 +37,15 @@ class HomeView extends StatelessWidget {
 //       showMawlidCelebrationPopup(context);
 //     });
 //   }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Stack(
+//       children: [
+//         const HomeViewBody(),
+//
+//         const Positioned.fill(
+//           child: MawlidCelebrationOverlay(),
+//         ),
+//       ],
+//     );  }
+// }
