@@ -107,6 +107,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
   }
 
 
+
   @override
   Widget build(BuildContext context) {
     return PopScope(

@@ -1,6 +1,9 @@
+import 'package:pizza_sofian_market/features/product/presentation/widgets/product_size_widget.dart';
 import '../../../../core/cubit/product_cubit/product_cubit.dart';
-import '../../../../core/models/category_model.dart';
 import '../../../../core/utils/app_imports.dart';
+import '../../../category/domain/entities/category_entity.dart';
+import '../../../category/presentation/view_model/category_cubit.dart';
+import 'categories_tab_bar.dart';
 import 'tap_bar_view_body.dart';
 
 class CategoryTabs extends StatefulWidget {
@@ -11,252 +14,214 @@ class CategoryTabs extends StatefulWidget {
 }
 
 class _CategoryTabsState extends State<CategoryTabs>
-    with SingleTickerProviderStateMixin {
-  final List<CategoryModel> categories = const [
-    CategoryModel(
-      id: 'فطير شرقي',
-      name: 'فطير شرقي',
-      sizes: ['صغير', 'وسط', 'كبير'],
-    ),
-    CategoryModel(
-      id: 'ميكسات فطير',
-      name: 'ميكسات فطير',
-      sizes: ['صغير', 'وسط', 'كبير'],
-    ),
-    CategoryModel(
-      id: 'فطائر حلو',
-      name: 'فطائر حلو',
-      sizes: ['صغير', 'وسط', 'كبير'],
-    ),
-    CategoryModel(
-      id: 'بيتزا ايطالي',
-      name: 'بيتزا ايطالي',
-      sizes: ['صغير', 'وسط', 'كبير','XL'],
-    ),
-    CategoryModel(
-      id: 'ميكسات بيتزا',
-      name: 'ميكسات بيتزا',
-      sizes: ['صغير', 'وسط', 'كبير','XL'],
-    ),
-    CategoryModel(
-      id: 'فطائر صاروخ',
-      name: 'فطائر صاروخ',
-      sizes: [],
-    ),
-    CategoryModel(
-      id: 'فطائر تركيه',
-      name: 'فطائر تركيه',
-      sizes: [],
-    ),
-    CategoryModel(
-      id: 'باستا نجرسكو وايت صوص',
-      name: 'باستا نجرسكو وايت صوص',
-      sizes: ['وسط', 'كبير'],
-    ),
-    CategoryModel(
-      id: 'كاليزوني ايطالي',
-      name: 'كاليزوني ايطالي',
-      sizes: ['صغير', 'وسط', 'كبير'],
-    ),
-    CategoryModel(
-      id: 'مقبلات سفيانو',
-      name: 'مقبلات سفيانو',
-      sizes: ['صغير', 'كبير'],
-    ),
-    CategoryModel(
-      id: 'كريب الجبن',
-      name: 'كريب الجبن',
-      sizes: ['عادي', 'رول', 'كونو'],
-    ),
-    CategoryModel(
-      id: 'كريب الفراخ',
-      name: 'كريب الفراخ',
-      sizes: ['عادي', 'رول', 'كونو'],
-    ),
-    CategoryModel(
-      id: 'كريب اللحوم',
-      name: 'كريب اللحوم',
-      sizes: ['عادي', 'رول', 'كونو'],
-    ),
-    CategoryModel(
-      id: 'كريب السي فود',
-      name: 'كريب السي فود',
-      sizes: ['عادي', 'رول', 'كونو'],
-    ),
-    CategoryModel(
-      id: 'ميكسات كريب سفيانو',
-      name: 'ميكسات كريب سفيانو',
-      sizes: ['عادي', 'رول', 'كونو'],
-    ),
-    CategoryModel(
-      id: 'كريب حلو',
-      name: 'كريب حلو',
-      sizes: ['كريب', 'رول'],
-    ),
-    CategoryModel(
-      id: 'فطير مشلتت مخصوص',
-      name: 'فطير مشلتت مخصوص',
-      sizes: ['صغير', 'وسط', 'كبير'],
-    ),
-    CategoryModel(
-      id: 'وجبه عربي فطير',
-      name: 'وجبه عربي فطير',
-      sizes: [],
-    ),
-    CategoryModel(
-      id: 'اكسترا سفيانو',
-      name: 'اكسترا سفيانو',
-      sizes: ['صغير', 'وسط', 'كبير','XL'],
-    ),
-    CategoryModel(
-      id: 'المشروبات',
-      name: 'المشروبات',
-      sizes: [],
-    ),
-    CategoryModel(
-      id: 'المعجنات',
-      name: 'المعجنات',
-      sizes: ['صغير', 'وسط', 'كبير','XL','عيش كريب'],
-    ),
-    CategoryModel(
-      id: 'الوجبات',
-      name: 'الوجبات',
-      sizes: [],
-    ),
-    CategoryModel(
-      id: 'سندويتشات سوري',
-      name: 'سندويتشات سوري',
-      sizes: ['صغير', 'وسط', 'كبير'],
-    ),
-    CategoryModel(
-      id: 'سندويتشات فرنساوي',
-      name: 'سندويتشات فرنساوي',
-      sizes: ['صغير', 'وسط', 'كبير'],
-    ),
-    CategoryModel(
-      id: 'سندويتشات برجر',
-      name: 'سندويتشات برجر',
-      sizes: ['سنجل','دابل'],
-    ),
-  ];
-
-  late final TabController _tabController;
-
+    with TickerProviderStateMixin {
+  TabController? _tabController;
   int selectedCategoryIndex = 0;
 
   final Map<String, String?> selectedSizes = {};
 
-  CategoryModel get selectedCategory =>
-      categories[selectedCategoryIndex];
+  CategoryEntity? get selectedCategory {
+    final categories = context.read<CategoryCubit>().categories;
 
-  String? get selectedSize =>
-      selectedSizes[selectedCategory.name];
+    if (categories.isEmpty) {
+      return null;
+    }
+
+    if (selectedCategoryIndex >= categories.length) {
+      return categories.first;
+    }
+
+    return categories[selectedCategoryIndex];
+  }
+
+  String? get selectedSize {
+    final category = selectedCategory;
+
+    if (category == null) {
+      return null;
+    }
+
+    return selectedSizes[category.name];
+  }
 
   @override
   void initState() {
     super.initState();
 
-    _tabController = TabController(
-      length: categories.length,
-      vsync: this,
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+
+      context.read<CategoryCubit>().getCategories();
+    });
+  }
+
+  void _createTabController(List<CategoryEntity> categories) {
+    if (categories.isEmpty) {
+      return;
+    }
+
+    if (selectedCategoryIndex >= categories.length) {
+      selectedCategoryIndex = 0;
+    }
 
     for (final category in categories) {
-      if (category.sizes.isNotEmpty) {
+      if (category.sizes.isNotEmpty &&
+          !selectedSizes.containsKey(category.name)) {
         selectedSizes[category.name] = category.sizes.first;
       }
     }
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _filterProducts();
-    });
+    if (_tabController != null && _tabController!.length == categories.length) {
+      return;
+    }
 
-    _tabController.addListener(_onTabChanged);
+    _tabController?.removeListener(_onTabChanged);
+    _tabController?.dispose();
+
+    _tabController = TabController(
+      length: categories.length,
+      vsync: this,
+      initialIndex: selectedCategoryIndex,
+    );
+
+    _tabController!.addListener(_onTabChanged);
   }
 
   void _onTabChanged() {
-    if (_tabController.indexIsChanging) return;
+    final controller = _tabController;
+
+    if (controller == null || controller.indexIsChanging) {
+      return;
+    }
+
+    final categories = context.read<CategoryCubit>().categories;
+
+    if (categories.isEmpty) {
+      return;
+    }
+
+    final index = controller.index;
+
+    if (index < 0 || index >= categories.length) {
+      return;
+    }
+
+    final category = categories[index];
+
+    if (!mounted) {
+      return;
+    }
+
+    if (category.sizes.isNotEmpty &&
+        !selectedSizes.containsKey(category.name)) {
+      selectedSizes[category.name] = category.sizes.first;
+    }
 
     setState(() {
-      selectedCategoryIndex = _tabController.index;
+      selectedCategoryIndex = index;
     });
 
     _filterProducts();
   }
 
   void _filterProducts() {
+    final category = selectedCategory;
+
+    if (category == null) {
+      return;
+    }
+
     context.read<ProductCubit>().filterProducts(
-      selectedCategory.name,
+      category.name,
       size: selectedSize,
     );
   }
 
   @override
   void dispose() {
-    _tabController.removeListener(_onTabChanged);
-    _tabController.dispose();
+    _tabController?.removeListener(_onTabChanged);
+    _tabController?.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<CategoryCubit, CategoryState>(
+      builder: (context, state) {
+        final categories = context.read<CategoryCubit>().categories;
+
+        if (state is CategoryGetLoading && categories.isEmpty) {
+          return const Center(
+            child: CircularProgressIndicator(color: AppColor.mainColor),
+          );
+        }
+
+        if (categories.isEmpty) {
+          return const Center(
+            child: Text(
+              'لا توجد تصنيفات',
+              style: TextStyle(
+                color: AppColor.textSecondary,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          );
+        }
+
+        _createTabController(categories);
+
+        return _buildContent(categories);
+      },
+    );
+  }
+
+  Widget _buildContent(List<CategoryEntity> categories) {
+    final controller = _tabController;
+
+    if (controller == null) {
+      return const SizedBox.shrink();
+    }
+
+    if (selectedCategoryIndex >= categories.length) {
+      return const SizedBox.shrink();
+    }
+
+    final category = categories[selectedCategoryIndex];
+
     return Column(
       children: [
-        Container(
-          height: 52.h,
-          margin: EdgeInsets.symmetric(horizontal: 16.w),
-          child: TabBar(
-            splashFactory: NoSplash.splashFactory,
-            controller: _tabController,
-            isScrollable: true,
-            tabAlignment: TabAlignment.start,
-            indicator: BoxDecoration(
-              color: AppColor.mainColor,
-              borderRadius: BorderRadius.circular(25.r),
-            ),
-            indicatorSize: TabBarIndicatorSize.tab,
-            labelColor: Colors.white,
-            unselectedLabelColor: AppColor.textSecondary,
-            labelStyle: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 13.sp,
-            ),
-            unselectedLabelStyle: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 12.sp,
-            ),
-            dividerColor: Colors.transparent,
-            overlayColor: WidgetStateProperty.all(
-              Colors.transparent,
-            ),
-            splashBorderRadius: BorderRadius.circular(25.r),
-            tabs: categories.map((category) {
-              return Tab(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 14.w,
-                    vertical: 8.h,
-                  ),
-                  child: Text(category.name),
-                ),
-              );
-            }).toList(),
-          ),
-        ),
+        const SizedBox(height: 2),
 
-        if (selectedCategory.sizes.isNotEmpty) ...[
+        CategoriesTabBar(controller: controller, categories: categories),
+
+        if (category.sizes.isNotEmpty) ...[
           SizedBox(height: 10.h),
-          _buildSizes(),
+
+          ProductSizeWidget(
+            category: category,
+            selectedSize: selectedSize,
+            onSizeSelected: (size) {
+              setState(() {
+                selectedSizes[category.name] = size;
+              });
+
+              _filterProducts();
+            },
+          ),
         ],
+
         SizedBox(height: 10.h),
+
         Expanded(
           child: TabBarView(
-            controller: _tabController,
+            controller: controller,
             physics: const NeverScrollableScrollPhysics(),
             children: categories.map((category) {
               return TapBarViewBody(
                 category: category.name,
-                size: category.name == selectedCategory.name
+                size: category.name == selectedCategory?.name
                     ? selectedSize
                     : null,
               );
@@ -266,98 +231,4 @@ class _CategoryTabsState extends State<CategoryTabs>
       ],
     );
   }
-
-  Widget _buildSizes() {
-    final sizes = selectedCategory.sizes;
-
-    if (sizes.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    return Container(
-      height: 55.h,
-      margin: EdgeInsets.symmetric(horizontal: 16.w),
-      child: Row(
-        children: [
-          Row(
-            children: [
-              Icon(
-                Icons.straighten_outlined,
-                size: 20.sp,
-                color: AppColor.mainColor,
-              ),
-              SizedBox(width: 7.w),
-              Center(
-                child: Text(
-                  'الحجم',
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w700,
-                    color: AppColor.textPrimary,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Spacer(),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: sizes.map((size) {
-              final isSelected =
-                  selectedSizes[selectedCategory.name] == size;
-
-              return Padding(
-                padding: EdgeInsets.only(left: 8.w),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(50.r),
-                  onTap: () {
-                    setState(() {
-                      selectedSizes[selectedCategory.name] = size;
-                    });
-
-                    _filterProducts();
-                  },
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    width: 45.w,
-                    height: 45.w,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: isSelected
-                          ? AppColor.mainColor
-                          : AppColor.card,
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: isSelected
-                            ? AppColor.mainColor
-                            : AppColor.border,
-                        width: 1,
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        size,
-                        textAlign: TextAlign.center,
-                        textDirection: TextDirection.rtl,
-                        style: TextStyle(
-                          color: isSelected
-                              ? Colors.white
-                              : AppColor.textSecondary,
-                          fontWeight: isSelected
-                              ? FontWeight.w700
-                              : FontWeight.w500,
-                          fontSize: 12.sp,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            }).toList(),
-          ),
-        ],
-      ),
-    );
-  }
-
 }

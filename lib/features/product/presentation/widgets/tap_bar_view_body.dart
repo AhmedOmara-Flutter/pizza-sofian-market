@@ -1,4 +1,6 @@
 import 'package:pizza_sofian_market/core/widgets/empty_widget.dart';
+import 'package:pizza_sofian_market/features/product/presentation/widgets/skeletonizer_product_item.dart';
+
 import '../../../../core/cubit/product_cubit/product_cubit.dart';
 import '../../../../core/utils/app_imports.dart';
 import '../../../../core/widgets/product_item.dart';
@@ -7,11 +9,7 @@ class TapBarViewBody extends StatelessWidget {
   final String category;
   final String? size;
 
-  const TapBarViewBody({
-    super.key,
-    required this.category,
-    this.size,
-  });
+  const TapBarViewBody({super.key, required this.category, this.size});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +22,7 @@ class TapBarViewBody extends StatelessWidget {
             .toList();
 
         if (size != null) {
-          products = products
-              .where((product) => product.size == size)
-              .toList();
+          products = products.where((product) => product.size == size).toList();
         }
 
         if (state is GetProductsLoadingState) {
@@ -40,19 +36,13 @@ class TapBarViewBody extends StatelessWidget {
               crossAxisSpacing: 16,
             ),
             itemBuilder: (context, index) {
-              return Skeletonizer(
-                child: ProductItem(
-                  product: getDummyProduct,
-                ),
-              );
+              return SkeletonizerProductItem();
             },
           );
         }
 
         if (state is GetFilteredProductsError) {
-          return Center(
-            child: Text(state.errMessage),
-          );
+          return Center(child: Text(state.errMessage));
         }
 
         if (products.isEmpty) {
@@ -60,11 +50,7 @@ class TapBarViewBody extends StatelessWidget {
         }
 
         return GridView.builder(
-          padding: EdgeInsets.only(
-            left: 20.w,
-            right: 20.w,
-            bottom: 20.h,
-          ),
+          padding: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 20.h),
           itemCount: products.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -73,9 +59,7 @@ class TapBarViewBody extends StatelessWidget {
             crossAxisSpacing: 14.w,
           ),
           itemBuilder: (context, index) {
-            return ProductItem(
-              product: products[index],
-            );
+            return ProductItem(product: products[index]);
           },
         );
       },

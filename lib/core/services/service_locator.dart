@@ -3,6 +3,8 @@ import 'package:pizza_sofian_market/core/repos/product_repo/product_repo.dart';
 import 'package:pizza_sofian_market/core/repos/product_repo/product_repo_impl.dart';
 import 'package:pizza_sofian_market/core/services/storage_services.dart';
 import 'package:pizza_sofian_market/core/utils/app_imports.dart';
+import '../../features/category/data/repos/category_repo.dart';
+import '../../features/category/domain/repos/category_repo_impl.dart';
 import '../../features/favorite/app/repos/favorite_repo_impl.dart';
 import '../../features/favorite/domain/repos/favorite_repo.dart';
 import '../../features/reviews/data/repos/review_repo_impl.dart';
@@ -59,6 +61,9 @@ void initAppModule() {
   );
   instance.registerLazySingleton<SelectedLocationRepo>(
         () => SelectedLocationRepoImpl(instance()),
+  );
+  instance.registerLazySingleton<CategoryRepo>(
+        () => CategoryRepoImpl(instance()),
   );
 
 }
