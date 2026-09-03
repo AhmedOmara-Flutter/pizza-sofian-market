@@ -24,6 +24,7 @@ class ProductModel extends ProductEntity {
     required super.createdAt,
     super.offerId,
     super.size,
+    super.isPaused = false,
   });
 
   factory ProductModel.fromEntity(ProductEntity entity) {
@@ -49,6 +50,7 @@ class ProductModel extends ProductEntity {
       createdAt: entity.createdAt,
       offerId: entity.offerId,
       size: entity.size,
+      isPaused: entity.isPaused,
     );
   }
 
@@ -76,6 +78,7 @@ class ProductModel extends ProductEntity {
       createdAt: createdAt,
       offerId: offerId,
       size: size,
+      isPaused: isPaused,
     );
   }
 
@@ -110,6 +113,7 @@ class ProductModel extends ProductEntity {
       createdAt: json['createdAt'] ?? '',
       offerId: json['offerId'],
       size: json['size'],
+      isPaused: json['isPaused'] ?? false,
     );
 
   }
@@ -135,6 +139,7 @@ class ProductModel extends ProductEntity {
       'createdAt': createdAt,
       'offerId': offerId,
       'size': size,
+      'isPaused': isPaused,
     };
   }
 }

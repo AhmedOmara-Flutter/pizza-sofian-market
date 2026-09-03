@@ -7,6 +7,8 @@ import '../../features/category/data/repos/category_repo.dart';
 import '../../features/category/domain/repos/category_repo_impl.dart';
 import '../../features/favorite/app/repos/favorite_repo_impl.dart';
 import '../../features/favorite/domain/repos/favorite_repo.dart';
+import '../../features/restaurant_status/data/repos/restaurant_status_repo.dart';
+import '../../features/restaurant_status/domain/repos/restaurant_status_repo_impl.dart';
 import '../../features/reviews/data/repos/review_repo_impl.dart';
 import '../../features/reviews/domain/repos/review_repo.dart';
 import '../repos/bundle_offer_repo/bundle_offer_repo_impl.dart';
@@ -65,5 +67,7 @@ void initAppModule() {
   instance.registerLazySingleton<CategoryRepo>(
         () => CategoryRepoImpl(instance()),
   );
-
+  instance.registerLazySingleton<RestaurantStatusRepo>(
+        () => RestaurantStatusRepoImpl(instance()),
+  );
 }

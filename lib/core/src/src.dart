@@ -8,6 +8,7 @@ import '../../features/cart/presentation/view_model/cart_cubit.dart';
 import '../../features/category/presentation/view_model/category_cubit.dart';
 import '../../features/favorite/presentation/view_model/favorite_cubit.dart';
 import '../../features/offers/presentation/view_model/offer_cubit.dart';
+import '../../features/restaurant_status/presentation/view_model/restaurant_status_cubit.dart';
 import '../../features/reviews/presentation/view_model/add_review_cubit/add_review_cubit.dart';
 import '../../features/reviews/presentation/view_model/get_review_cubit/get_review_cubit.dart';
 import '../cubit/network_cubit/network_cubit.dart';
@@ -26,18 +27,14 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => FeaturedCubit(instance())),
         BlocProvider(create: (context) => ProductCubit(instance())),
         BlocProvider(create: (context) => CartCubit(instance())),
-        BlocProvider(
-          create: (context) => FavoriteCubit(instance())..getFavorites(),
-        ),
-        BlocProvider(
-          create: (context) =>
-              ProfileCubit(instance(), instance())..getOrders(),
-        ),
+        BlocProvider(create: (context) => FavoriteCubit(instance())..getFavorites(),),
+        BlocProvider(create: (context) => ProfileCubit(instance(), instance())..getOrders(),),
         BlocProvider(create: (context) => AddReviewCubit(instance())),
         BlocProvider(create: (context) => GetReviewCubit(instance())),
         BlocProvider(create: (context) => OfferCubit(instance(), instance())),
         BlocProvider(create: (context) => GetBundleOfferCubit(instance())),
         BlocProvider(create: (context) => CategoryCubit(instance())),
+        BlocProvider(create: (context) => RestaurantStatusCubit(instance())..startListening(),)
 
       ],
       child: ScreenUtilInit(

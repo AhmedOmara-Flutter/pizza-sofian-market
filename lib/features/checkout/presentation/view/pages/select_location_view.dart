@@ -8,20 +8,26 @@ class SelectLocationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.watch<CheckoutCubit>();
-
     if (cubit.state is CheckoutLocationsLoading) {
-      return const Center(
-        child: CircularProgressIndicator(
-          color: AppColor.mainColor,
+      return const SafeArea(
+        child: Center(
+          child: CircularProgressIndicator(
+            color: AppColor.mainColor,
+          ),
         ),
       );
     }
 
     if (cubit.state is CheckoutLocationsError) {
-      return Center(
-        child: Text(
-          'حدث خطأ أثناء تحميل أماكن التوصيل',
-          style: Theme.of(context).textTheme.bodyMedium,
+      return SafeArea(
+        child: Center(
+          child: Text(
+            'حدث خطأ أثناء تحميل أماكن التوصيل',
+            style: Theme
+                .of(context)
+                .textTheme
+                .bodyMedium,
+          ),
         ),
       );
     }
@@ -33,11 +39,12 @@ class SelectLocationView extends StatelessWidget {
             child: cubit.placesOptions.isEmpty
                 ? Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Location Icon
                     Container(
                       width: 90,
                       height: 90,
@@ -58,7 +65,6 @@ class SelectLocationView extends StatelessWidget {
 
                     const SizedBox(height: 22),
 
-                    // Title
                     Text(
                       'لا توجد أماكن توصيل',
                       style: StyleManager.font16Weight700.copyWith(
@@ -69,7 +75,6 @@ class SelectLocationView extends StatelessWidget {
 
                     const SizedBox(height: 10),
 
-                    // Description
                     Text(
                       'عذرًا، لا توجد مناطق توصيل متاحة حاليًا.\n'
                           'يمكنك المحاولة مرة أخرى لاحقًا.',
@@ -89,9 +94,10 @@ class SelectLocationView extends StatelessWidget {
               ),
               physics: const BouncingScrollPhysics(),
               itemCount: cubit.placesOptions.length,
-              separatorBuilder: (_, _) => SizedBox(
-                height: 10.h,
-              ),
+              separatorBuilder: (_, _) =>
+                  SizedBox(
+                    height: 10.h,
+                  ),
               itemBuilder: (context, index) {
                 final item = cubit.placesOptions[index];
 
@@ -136,7 +142,10 @@ class SelectLocationView extends StatelessWidget {
             },
             child: Text(
               'التالي',
-              style: Theme.of(context).textTheme.labelSmall,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .labelSmall,
             ),
           ),
 

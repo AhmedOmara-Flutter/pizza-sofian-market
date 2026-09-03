@@ -25,6 +25,8 @@ class ProductEntity extends Equatable {
   final String createdAt;
   String? offerId;
   final String ?size;
+  final bool isPaused;
+
 
   ProductEntity({
     required this.name,
@@ -48,6 +50,7 @@ class ProductEntity extends Equatable {
     required this.createdAt,
     this.offerId,
     this.size,
+    this.isPaused = false,
   });
 
 
@@ -75,5 +78,6 @@ class ProductEntity extends Equatable {
     createdAt,
     offerId,
     size,
+    isPaused,
   ];
 }

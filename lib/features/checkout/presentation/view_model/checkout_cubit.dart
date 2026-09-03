@@ -230,14 +230,12 @@ class CheckoutCubit extends Cubit<CheckoutState> {
         .getLocationsStream()
         .listen(
           (locations) {
+            debugPrint('🔥 LOCATIONS RECEIVED: ${locations.length}');
         placesOptions = locations;
-
-        // لو المكان المختار اتمسح من Firestore
         if (selectedLocationIndex != null &&
             selectedLocationIndex! >= placesOptions.length) {
           selectedLocationIndex = null;
         }
-
         emit(CheckoutLocationsUpdated());
       },
       onError: (error) {

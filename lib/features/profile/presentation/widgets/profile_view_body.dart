@@ -2,7 +2,6 @@ import 'package:pizza_sofian_market/features/profile/presentation/widgets/profil
 import 'package:pizza_sofian_market/features/profile/presentation/widgets/profile_header.dart';
 import 'package:pizza_sofian_market/features/profile/presentation/widgets/profile_help_section.dart';
 import 'package:pizza_sofian_market/features/profile/presentation/widgets/profile_sign_out.dart';
-import 'package:pizza_sofian_market/features/profile/presentation/widgets/profile_option_list.dart';
 
 import '../../../../core/utils/app_imports.dart';
 
@@ -27,7 +26,6 @@ class ProfileViewBody extends StatelessWidget {
               child: ProfileHelpSection(),
             ),
             SliverToBoxAdapter(child: ProfileSignOut()),
-
           ],
         ),
       ],

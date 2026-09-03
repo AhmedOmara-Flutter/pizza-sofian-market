@@ -12,6 +12,7 @@ import '../../../bundle_offer/view/bundle_offer_section.dart';
 import '../../../bundle_offer/view_model/get_bundle_offer_cubit/get_bundle_offer_cubit.dart';
 import '../../../bundle_offer/widgets/bundle_offer_list.dart';
 import '../../../offers/presentation/view_model/offer_cubit.dart';
+import 'restaurant_closed_banner.dart';
 import 'best_selling_products_list.dart';
 import 'featured_products_list.dart';
 
@@ -61,46 +62,11 @@ class _HomeViewBodyState extends State<HomeViewBody> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 HomeHeader(),
-                Container(
-                  margin: const EdgeInsets.only(top: 8,right: 20),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
-                    vertical: 7,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(30),
-                    border: Border.all(
-                      color: Colors.white.withOpacity(0.18),
-                      width: 1,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.access_time_rounded,
-                        size: 16,
-                        color: Colors.white.withOpacity(0.55),
-                      ),
-                      const SizedBox(width: 6),
-                      Text(
-                        'مواعيد الطلب من التطبيق: 5:00 عصراً إلى 3:00 فجراً',
-                        style:StyleManager.font11Weight400,
-                      ),
-                      const SizedBox(width: 6),
-                      Icon(
-                        Icons.access_time_rounded,
-                        size: 16,
-                        color: Colors.white.withOpacity(0.55),
-                      ),
-                    ],
-                  ),
-                ),
+                RestaurantClosedBanner(),
                 if (offers.isEmpty)
                   Column(
                     children: [
-                      SizedBox(height: 25),
+                      SizedBox(height: 15,),
                       CustomSearchField(
                         borderSide: BorderSide.none,
                         readOnly: true,

@@ -4,6 +4,7 @@ import 'package:pizza_sofian_market/core/utils/app_imports.dart';
 
 import '../../../core/helper_function/get_user.dart';
 import '../../cart/presentation/view_model/cart_cubit.dart';
+import '../../restaurant_status/presentation/view_model/restaurant_status_cubit.dart';
 
 class BundleOfferCard extends StatelessWidget {
   final BundleOfferEntity bundleOffer;
@@ -29,9 +30,6 @@ class BundleOfferCard extends StatelessWidget {
           clipBehavior: Clip.none,
           alignment: Alignment.topCenter,
           children: [
-            // =========================================================
-            // CARD
-            // =========================================================
             Positioned(
               top: 0,
               left: 0,
@@ -57,9 +55,6 @@ class BundleOfferCard extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      // =================================================
-                      // INFO BUTTON
-                      // =================================================
                       Row(
                         mainAxisAlignment:
                         MainAxisAlignment.spaceBetween,
@@ -112,12 +107,7 @@ class BundleOfferCard extends StatelessWidget {
                           ),
                         ],
                       ),
-
                       SizedBox(height: 10.h),
-
-                      // =================================================
-                      // IMAGE
-                      // =================================================
                       ClipRRect(
                         borderRadius: BorderRadius.circular(15.r),
                         child: CachedNetworkImage(
@@ -151,113 +141,144 @@ class BundleOfferCard extends StatelessWidget {
                           },
                         ),
                       ),
-
                       SizedBox(height: 15.h),
-
-                      // =================================================
-                      // ADD TO CART
-                      // =================================================
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          horizontal: 10.w,
-                        ),
-                        width: double.infinity,
-                        height: 46.h,
-                        child: Material(
-                          color: AppColor.transparent,
-                          borderRadius:
-                          BorderRadius.circular(23.r),
-                          child: InkWell(
-                            borderRadius:
-                            BorderRadius.circular(23.r),
-                            onTap: () {
-                              context.read<CartCubit>().addBundleOffer(
-                                bundleOffer,
-                                getUser().uId,
-                              );
-                            },
-                            child: Ink(
-                              padding: EdgeInsets.only(
-                                right: 18.w,
-                                left: 8.w,
-                                top: 3.h,
-                                bottom: 3.h,
+                      BlocBuilder<RestaurantStatusCubit, RestaurantStatusState>(
+                        builder: (context, state) {
+                          if (state is RestaurantStatusLoaded &&
+                              !state.restaurantStatus.isOpen) {
+                            return  Container(
+                              margin: EdgeInsets.symmetric(
+                                horizontal: 10.w,
                               ),
-                              decoration: BoxDecoration(
-                                color: AppColor.card,
-                                borderRadius:
-                                BorderRadius.circular(30.r),
-                                border: Border.all(
-                                  color: AppColor.border,
-                                  width: 1.w,
+                              width: double.infinity,
+                              height: 46.h,
+                              child: Material(
+                                color: AppColor.transparent,
+                                borderRadius: BorderRadius.circular(23.r),
+                                child: Ink(
+                                  padding: EdgeInsets.only(
+                                    right: 18.w,
+                                    left: 8.w,
+                                    top: 3.h,
+                                    bottom: 3.h,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColor.card,
+                                    borderRadius: BorderRadius.circular(30.r),
+                                    border: Border.all(
+                                      color: AppColor.border,
+                                      width: 1.w,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          bundleOffer.title,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: StyleManager.font14Weight600.copyWith(
+                                            color: AppColor.textPrimary,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
-                                children: [
-                                  // TITLE
-                                  Flexible(
-                                    child: Text(
-                                      bundleOffer.title,
-                                      maxLines: 1,
-                                      overflow:
-                                      TextOverflow.ellipsis,
-                                      style: StyleManager
-                                          .font14Weight600
-                                          .copyWith(
-                                        color:
-                                        AppColor.textPrimary,
-                                        fontWeight:
-                                        FontWeight.w700,
-                                      ),
+                            ) ;
+                          }
+
+                          return Container(
+                            margin: EdgeInsets.symmetric(
+                              horizontal: 10.w,
+                            ),
+                            width: double.infinity,
+                            height: 46.h,
+                            child: Material(
+                              color: AppColor.transparent,
+                              borderRadius: BorderRadius.circular(23.r),
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(23.r),
+                                onTap: () {
+                                  context.read<CartCubit>().addBundleOffer(
+                                    bundleOffer,
+                                    getUser().uId,
+                                  );
+                                },
+                                child: Ink(
+                                  padding: EdgeInsets.only(
+                                    right: 18.w,
+                                    left: 8.w,
+                                    top: 3.h,
+                                    bottom: 3.h,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColor.card,
+                                    borderRadius: BorderRadius.circular(30.r),
+                                    border: Border.all(
+                                      color: AppColor.border,
+                                      width: 1.w,
                                     ),
                                   ),
-
-                                  SizedBox(width: 6.w),
-
-                                  // CART BUTTON
-                                  Container(
-                                    width: 35.w,
-                                    height: 35.w,
-                                    decoration: BoxDecoration(
-                                      color: AppColor.mainColor,
-                                      shape: BoxShape.circle,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: AppColor.mainColor
-                                              .withOpacity(.20),
-                                          blurRadius: 6.r,
-                                          offset:
-                                          Offset(0, 2.h),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      // TITLE
+                                      Flexible(
+                                        child: Text(
+                                          bundleOffer.title,
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: StyleManager.font14Weight600.copyWith(
+                                            color: AppColor.textPrimary,
+                                            fontWeight: FontWeight.w700,
+                                          ),
                                         ),
-                                      ],
-                                    ),
-                                    child: Icon(
-                                      Icons.add_shopping_cart,
-                                      color: AppColor.white,
-                                      size: 18.sp,
-                                    ),
+                                      ),
+
+                                      SizedBox(width: 6.w),
+
+                                      // CART BUTTON
+                                      Container(
+                                        width: 35.w,
+                                        height: 35.w,
+                                        decoration: BoxDecoration(
+                                          color: AppColor.mainColor,
+                                          shape: BoxShape.circle,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: AppColor.mainColor.withOpacity(.20),
+                                              blurRadius: 6.r,
+                                              offset: Offset(0, 2.h),
+                                            ),
+                                          ],
+                                        ),
+                                        child: Icon(
+                                          Icons.add_shopping_cart,
+                                          color: AppColor.white,
+                                          size: 18.sp,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       ),
                     ],
                   ),
                 ),
               ),
             ),
-
-            // =========================================================
-            // PRICE BADGE
-            // =========================================================
             Positioned(
               top: -25.h,
               left: -10.w,
-              child: OfferPriceBadge(
+              child: BundleOfferPriceBadge(
                 price: bundleOffer.price,
               ),
             ),
@@ -268,14 +289,10 @@ class BundleOfferCard extends StatelessWidget {
   }
 }
 
-// =====================================================================
-// PRICE BADGE
-// =====================================================================
-
-class OfferPriceBadge extends StatelessWidget {
+class BundleOfferPriceBadge extends StatelessWidget {
   final double price;
 
-  const OfferPriceBadge({
+  const BundleOfferPriceBadge({
     super.key,
     required this.price,
   });
@@ -288,19 +305,12 @@ class OfferPriceBadge extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          // ===========================================================
-          // BRUSH IMAGE
-          // ===========================================================
           Positioned.fill(
             child: Image.asset(
               Assets.assets.images.bedgeImage.path,
               fit: BoxFit.contain,
             ),
           ),
-
-          // ===========================================================
-          // PRICE CONTENT
-          // ===========================================================
           Padding(
             padding: EdgeInsets.only(
               top: 3.h,
