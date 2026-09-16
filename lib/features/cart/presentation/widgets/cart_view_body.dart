@@ -5,6 +5,7 @@ import '../../../../core/helper_function/price_helper.dart';
 import '../../../../core/utils/app_imports.dart';
 import '../../../offers/presentation/view_model/offer_cubit.dart';
 import '../view_model/cart_cubit.dart';
+import 'cart_checkout_section.dart';
 import 'cart_item_list.dart';
 
 class CartViewBody extends StatelessWidget {
@@ -32,25 +33,8 @@ class CartViewBody extends StatelessWidget {
               ),
             ),
             CartItemList(cartItem:cubit.cart.cartItems,),
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  SizedBox(height: 40.h),
-                  CustomButton(
-                    child: Text(
-                      'الدفع ${totalPrice.toStringAsFixed(2)} جنيه',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .labelSmall,
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, RouteManager.checkout,arguments:cubit.cart );
-                    },
-                  ),
-                  SizedBox(height: 20.h),
-                ],
-              ),
+            CartCheckoutSection(
+              totalPrice: totalPrice,
             ),
           ],
             ), fallback: (context) => EmptyCartWidget(),);

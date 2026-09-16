@@ -1,6 +1,10 @@
 import 'dart:ui';
 
-import 'package:pizza_sofian_market/core/utils/app_imports.dart';
+import 'package:flutter/material.dart';
+
+import '../utils/app_color.dart';
+import '../utils/style_manager.dart';
+
 
 class LoadingOverlay extends StatelessWidget {
   final bool isLoading;

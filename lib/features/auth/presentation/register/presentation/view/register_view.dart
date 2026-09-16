@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:pizza_sofian_market/core/utils/app_imports.dart';
-
 import '../../../../../../core/widgets/loading_overlay.dart';
 
 class RegisterView extends StatelessWidget {

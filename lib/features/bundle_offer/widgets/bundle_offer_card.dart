@@ -142,134 +142,202 @@ class BundleOfferCard extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 15.h),
-                      BlocBuilder<RestaurantStatusCubit, RestaurantStatusState>(
-                        builder: (context, state) {
-                          if (state is RestaurantStatusLoaded &&
-                              !state.restaurantStatus.isOpen) {
-                            return  Container(
-                              margin: EdgeInsets.symmetric(
-                                horizontal: 10.w,
+                      // BlocBuilder<RestaurantStatusCubit, RestaurantStatusState>(
+                      //   builder: (context, state) {
+                      //     if (state is RestaurantStatusLoaded &&
+                      //         !state.restaurantStatus.isOpen) {
+                      //       return  Container(
+                      //         margin: EdgeInsets.symmetric(
+                      //           horizontal: 10.w,
+                      //         ),
+                      //         width: double.infinity,
+                      //         height: 46.h,
+                      //         child: Material(
+                      //           color: AppColor.transparent,
+                      //           borderRadius: BorderRadius.circular(23.r),
+                      //           child: Ink(
+                      //             padding: EdgeInsets.only(
+                      //               right: 18.w,
+                      //               left: 8.w,
+                      //               top: 3.h,
+                      //               bottom: 3.h,
+                      //             ),
+                      //             decoration: BoxDecoration(
+                      //               color: AppColor.card,
+                      //               borderRadius: BorderRadius.circular(30.r),
+                      //               border: Border.all(
+                      //                 color: AppColor.border,
+                      //                 width: 1.w,
+                      //               ),
+                      //             ),
+                      //             child: Row(
+                      //               mainAxisAlignment: MainAxisAlignment.center,
+                      //               children: [
+                      //                 Flexible(
+                      //                   child: Text(
+                      //                     bundleOffer.title,
+                      //                     maxLines: 1,
+                      //                     overflow: TextOverflow.ellipsis,
+                      //                     style: StyleManager.font14Weight600.copyWith(
+                      //                       color: AppColor.textPrimary,
+                      //                       fontWeight: FontWeight.w700,
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ) ;
+                      //     }
+                      //     return Container(
+                      //       margin: EdgeInsets.symmetric(
+                      //         horizontal: 10.w,
+                      //       ),
+                      //       width: double.infinity,
+                      //       height: 46.h,
+                      //       child: Material(
+                      //         color: AppColor.transparent,
+                      //         borderRadius: BorderRadius.circular(23.r),
+                      //         child: InkWell(
+                      //           borderRadius: BorderRadius.circular(23.r),
+                      //           onTap: () {
+                      //             context.read<CartCubit>().addBundleOffer(
+                      //               bundleOffer,
+                      //               getUser().uId,
+                      //             );
+                      //           },
+                      //           child: Ink(
+                      //             padding: EdgeInsets.only(
+                      //               right: 18.w,
+                      //               left: 8.w,
+                      //               top: 3.h,
+                      //               bottom: 3.h,
+                      //             ),
+                      //             decoration: BoxDecoration(
+                      //               color: AppColor.card,
+                      //               borderRadius: BorderRadius.circular(30.r),
+                      //               border: Border.all(
+                      //                 color: AppColor.border,
+                      //                 width: 1.w,
+                      //               ),
+                      //             ),
+                      //             child: Row(
+                      //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //               children: [
+                      //                 Flexible(
+                      //                   child: Text(
+                      //                     bundleOffer.title,
+                      //                     maxLines: 1,
+                      //                     overflow: TextOverflow.ellipsis,
+                      //                     style: StyleManager.font14Weight600.copyWith(
+                      //                       color: AppColor.textPrimary,
+                      //                       fontWeight: FontWeight.w700,
+                      //                     ),
+                      //                   ),
+                      //                 ),
+                      //                 SizedBox(width: 6.w),
+                      //                 Container(
+                      //                   width: 35.w,
+                      //                   height: 35.w,
+                      //                   decoration: BoxDecoration(
+                      //                     color: AppColor.mainColor,
+                      //                     shape: BoxShape.circle,
+                      //                     boxShadow: [
+                      //                       BoxShadow(
+                      //                         color: AppColor.mainColor.withOpacity(.20),
+                      //                         blurRadius: 6.r,
+                      //                         offset: Offset(0, 2.h),
+                      //                       ),
+                      //                     ],
+                      //                   ),
+                      //                   child: Icon(
+                      //                     Icons.add_shopping_cart,
+                      //                     color: AppColor.white,
+                      //                     size: 18.sp,
+                      //                   ),
+                      //                 ),
+                      //               ],
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     );
+                      //   },
+                      // ),
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          horizontal: 10.w,
+                        ),
+                        width: double.infinity,
+                        height: 46.h,
+                        child: Material(
+                          color: AppColor.transparent,
+                          borderRadius: BorderRadius.circular(23.r),
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(23.r),
+                            onTap: () {
+                              context.read<CartCubit>().addBundleOffer(
+                                bundleOffer,
+                                getUser().uId,
+                              );
+                            },
+                            child: Ink(
+                              padding: EdgeInsets.only(
+                                right: 18.w,
+                                left: 8.w,
+                                top: 3.h,
+                                bottom: 3.h,
                               ),
-                              width: double.infinity,
-                              height: 46.h,
-                              child: Material(
-                                color: AppColor.transparent,
-                                borderRadius: BorderRadius.circular(23.r),
-                                child: Ink(
-                                  padding: EdgeInsets.only(
-                                    right: 18.w,
-                                    left: 8.w,
-                                    top: 3.h,
-                                    bottom: 3.h,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: AppColor.card,
-                                    borderRadius: BorderRadius.circular(30.r),
-                                    border: Border.all(
-                                      color: AppColor.border,
-                                      width: 1.w,
-                                    ),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Flexible(
-                                        child: Text(
-                                          bundleOffer.title,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: StyleManager.font14Weight600.copyWith(
-                                            color: AppColor.textPrimary,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                              decoration: BoxDecoration(
+                                color: AppColor.card,
+                                borderRadius: BorderRadius.circular(30.r),
+                                border: Border.all(
+                                  color: AppColor.border,
+                                  width: 1.w,
                                 ),
                               ),
-                            ) ;
-                          }
-
-                          return Container(
-                            margin: EdgeInsets.symmetric(
-                              horizontal: 10.w,
-                            ),
-                            width: double.infinity,
-                            height: 46.h,
-                            child: Material(
-                              color: AppColor.transparent,
-                              borderRadius: BorderRadius.circular(23.r),
-                              child: InkWell(
-                                borderRadius: BorderRadius.circular(23.r),
-                                onTap: () {
-                                  context.read<CartCubit>().addBundleOffer(
-                                    bundleOffer,
-                                    getUser().uId,
-                                  );
-                                },
-                                child: Ink(
-                                  padding: EdgeInsets.only(
-                                    right: 18.w,
-                                    left: 8.w,
-                                    top: 3.h,
-                                    bottom: 3.h,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: AppColor.card,
-                                    borderRadius: BorderRadius.circular(30.r),
-                                    border: Border.all(
-                                      color: AppColor.border,
-                                      width: 1.w,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      bundleOffer.title,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: StyleManager.font14Weight600.copyWith(
+                                        color: AppColor.textPrimary,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
                                   ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      // TITLE
-                                      Flexible(
-                                        child: Text(
-                                          bundleOffer.title,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: StyleManager.font14Weight600.copyWith(
-                                            color: AppColor.textPrimary,
-                                            fontWeight: FontWeight.w700,
-                                          ),
+                                  SizedBox(width: 6.w),
+                                  Container(
+                                    width: 35.w,
+                                    height: 35.w,
+                                    decoration: BoxDecoration(
+                                      color: AppColor.mainColor,
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColor.mainColor.withOpacity(.20),
+                                          blurRadius: 6.r,
+                                          offset: Offset(0, 2.h),
                                         ),
-                                      ),
-
-                                      SizedBox(width: 6.w),
-
-                                      // CART BUTTON
-                                      Container(
-                                        width: 35.w,
-                                        height: 35.w,
-                                        decoration: BoxDecoration(
-                                          color: AppColor.mainColor,
-                                          shape: BoxShape.circle,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: AppColor.mainColor.withOpacity(.20),
-                                              blurRadius: 6.r,
-                                              offset: Offset(0, 2.h),
-                                            ),
-                                          ],
-                                        ),
-                                        child: Icon(
-                                          Icons.add_shopping_cart,
-                                          color: AppColor.white,
-                                          size: 18.sp,
-                                        ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
+                                    child: Icon(
+                                      Icons.add_shopping_cart,
+                                      color: AppColor.white,
+                                      size: 18.sp,
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        ),
+                      )
                     ],
                   ),
                 ),

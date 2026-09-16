@@ -237,53 +237,53 @@ class ActiveProductItem extends StatelessWidget {
                       ),
                       textAlign: TextAlign.right,
                     ),
-                    trailing: BlocBuilder<RestaurantStatusCubit, RestaurantStatusState>(
-                      builder: (context, state) {
-                        if (state is RestaurantStatusLoaded &&
-                            !state.restaurantStatus.isOpen) {
-                          return const SizedBox.shrink();
-                        }
-
-                        return GestureDetector(
-                          onTap: () {
-                            context.read<CartCubit>().addProduct(
-                              product,
-                              offer,
-                              getUser().uId,
-                            );
-                          },
-                          child: CircleAvatar(
-                            radius: 20.r,
-                            backgroundColor: AppColor.mainColor,
-                            child: Icon(
-                              Icons.add_shopping_cart_rounded,
-                              color: Colors.white,
-                              size: 20.sp,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-
-                    // trailing: GestureDetector(
-                    //   onTap: () {
-                    //     context.read<CartCubit>().addProduct(
-                    //       product,
-                    //       offer,
-                    //       getUser().uId,
+                    // trailing: BlocBuilder<RestaurantStatusCubit, RestaurantStatusState>(
+                    //   builder: (context, state) {
+                    //     if (state is RestaurantStatusLoaded &&
+                    //         !state.restaurantStatus.isOpen) {
+                    //       return const SizedBox.shrink();
+                    //     }
+                    //
+                    //     return GestureDetector(
+                    //       onTap: () {
+                    //         context.read<CartCubit>().addProduct(
+                    //           product,
+                    //           offer,
+                    //           getUser().uId,
+                    //         );
+                    //       },
+                    //       child: CircleAvatar(
+                    //         radius: 20.r,
+                    //         backgroundColor: AppColor.mainColor,
+                    //         child: Icon(
+                    //           Icons.add_shopping_cart_rounded,
+                    //           color: Colors.white,
+                    //           size: 20.sp,
+                    //         ),
+                    //       ),
                     //     );
                     //   },
-                    //   child: CircleAvatar(
-                    //     radius: 20.r,
-                    //     backgroundColor:
-                    //     AppColor.mainColor,
-                    //     child: Icon(
-                    //       Icons.add_shopping_cart_rounded,
-                    //       color: Colors.white,
-                    //       size: 20.sp,
-                    //     ),
-                    //   ),
                     // ),
+
+                    trailing: GestureDetector(
+                      onTap: () {
+                        context.read<CartCubit>().addProduct(
+                          product,
+                          offer,
+                          getUser().uId,
+                        );
+                      },
+                      child: CircleAvatar(
+                        radius: 20.r,
+                        backgroundColor:
+                        AppColor.mainColor,
+                        child: Icon(
+                          Icons.add_shopping_cart_rounded,
+                          color: Colors.white,
+                          size: 20.sp,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

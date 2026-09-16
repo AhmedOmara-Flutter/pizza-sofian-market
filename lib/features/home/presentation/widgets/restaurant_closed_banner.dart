@@ -12,12 +12,7 @@ class RestaurantClosedBanner extends StatelessWidget {
       builder: (context, state) {
         if (state is! RestaurantStatusLoaded ||
             state.restaurantStatus.isOpen) {
-          return Column(
-            children: [
-              SizedBox(height: 10,),
-              AppInfoBanner(),
-            ],
-          );
+          return SizedBox.shrink();
         }
 
         return Container(
