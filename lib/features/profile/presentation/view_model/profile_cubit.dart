@@ -19,25 +19,25 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfileChangeObscureText());
   }
 
- void getOrders()  {
-   _orderSubscription?.cancel();
+  void getOrders()  {
+    _orderSubscription?.cancel();
     emit(ProfileGetOrdersLoading());
-   _orderSubscription =  _orderRepo.getOrder(getUser().uId).listen((data){
-     data.fold(
-           (failure) => emit(ProfileGetOrdersError(errMessage: failure.errMessage)),
-           (data) {
-         emit(ProfileGetOrdersSuccess(data));
-       },
-     );
-   });
+    _orderSubscription =  _orderRepo.getOrder(getUser().uId).listen((data){
+      data.fold(
+            (failure) => emit(ProfileGetOrdersError(errMessage: failure.errMessage)),
+            (data) {
+          emit(ProfileGetOrdersSuccess(data));
+        },
+      );
+    });
   }
 
   Future<void> deleteAccount(String password) async {
     emit(ProfileDeleteAccountLoading());
     final result = await _authRepo.deleteAccount(password);
     result.fold(
-      (failure) => emit(ProfileDeleteAccountError(errMessage: failure.errMessage)),
-      (data) {
+          (failure) => emit(ProfileDeleteAccountError(errMessage: failure.errMessage)),
+          (data) {
         emit(ProfileDeleteAccountSuccess());
       },
     );
@@ -50,6 +50,13 @@ class ProfileCubit extends Cubit<ProfileState> {
     if (state is ProfileDeleteAccountError) {
       emit(ProfileInitial());
     }
+  }
+
+  void clear() {
+    _orderSubscription?.cancel();
+    _orderSubscription = null;
+
+    emit(ProfileInitial());
   }
 
   @override

@@ -48,7 +48,7 @@ class AuthRepoImpl implements AuthRepo {
         await _authServices.deleteUser();
         print(e);
       }
-print(e);
+      print(e);
       return Left(ServerFailure(errMessage: e.toString()));
     }
   }

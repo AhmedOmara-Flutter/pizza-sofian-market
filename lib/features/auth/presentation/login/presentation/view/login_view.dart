@@ -1,6 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:pizza_sofian_market/core/utils/app_imports.dart';
 import '../../../../../../core/widgets/loading_overlay.dart';
+import '../../../../../cart/presentation/view_model/cart_cubit.dart';
+import '../../../../../favorite/presentation/view_model/favorite_cubit.dart';
+import '../../../../../profile/presentation/view_model/profile_cubit.dart';
 
 
 class LoginView extends StatelessWidget {
@@ -16,15 +19,21 @@ class LoginView extends StatelessWidget {
             if (state is LoginSuccess) {
               AppVibration.medium();
               AppSounds.playClickSound('success.mp3');
+              context.read<FavoriteCubit>().getFavorites();
+              context.read<CartCubit>().loadCart(state.user.uId);
+              context.read<ProfileCubit>().getOrders();
+             // context.read<CouponsCubit>().getCoupons(state.user.uId);
+             // context.read<SelectedCouponCubit>().clearCoupon();
               customShowSnakeBar(
                 context,
                 color: AppColor.green,
                 label: 'تم تسجيل الدخول بنجاح',
               );
+
               Navigator.pushNamedAndRemoveUntil(
                 context,
                 RouteManager.home,
-                (route) => false,
+                    (route) => false,
                 arguments: state.user,
               );
             }

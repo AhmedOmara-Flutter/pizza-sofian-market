@@ -1,6 +1,9 @@
 import 'package:pizza_sofian_market/core/helper_function/custom_show_dialog.dart';
 import 'package:pizza_sofian_market/core/widgets/loading_page.dart';
 import '../../../../core/utils/app_imports.dart';
+import '../../../cart/presentation/view_model/cart_cubit.dart';
+import '../../../favorite/presentation/view_model/favorite_cubit.dart';
+import '../view_model/profile_cubit.dart';
 
 class ProfileSignOut extends StatelessWidget {
   const ProfileSignOut({super.key});
@@ -32,8 +35,29 @@ class ProfileSignOut extends StatelessWidget {
               flag: Icons.logout,
               cancel: () => Navigator.pop(context),
               accept: () async {
+                print('1 - logout started');
+
+                context.read<FavoriteCubit>().clear();
+                print('2 - favorite cleared');
+
+                context.read<CartCubit>().clear();
+                print('3 - cart cleared');
+
+                context.read<ProfileCubit>().clear();
+                print('4 - profile cleared');
+
+                // context.read<CouponsCubit>().clear();
+                // print('5 - coupons cleared');
+                //
+                // context.read<SelectedCouponCubit>().clearCoupon();
+                // print('6 - coupon cleared');
+
                 await instance<AuthRepo>().signOut();
+                print('7 - signed out');
+
                 context.read<MainCubit>().currentIndex = 0;
+                print('8 - index reset');
+
                 Navigator.pushNamed(
                   context,
                   RouteManager.loading,
@@ -43,6 +67,8 @@ class ProfileSignOut extends StatelessWidget {
                     nextRoute: RouteManager.login,
                   ),
                 );
+
+                print('9 - navigation called');
               },
             );
           },
