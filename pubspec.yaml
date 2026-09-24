@@ -87,7 +87,8 @@ flutter_launcher_icons:
   #  flutter pub run flutter_launcher_icons:main
   #  shorebird patch --platforms=android --release-version=1.0.1+2
   #  shorebird release android --artifact apk --target-platform android-arm64 --flutter-version=3.38.4
-
+  #  shorebird patch --platforms=android --release-version=1.0.9+10 --allow-native-diffs
+  #  shorebird patch --platforms=android --release-version=1.0.9+10 --allow-native-diffs --allow-asset-diffs
 
 
   # The "flutter_lints" package below contains a set of recommended lints to

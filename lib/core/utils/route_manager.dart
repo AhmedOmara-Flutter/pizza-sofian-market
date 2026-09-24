@@ -10,6 +10,7 @@ import '../../features/auth/presentation/forget_password/view/forget_password_vi
 import '../../features/cart/domain/entities/cart_entity.dart';
 import '../../features/checkout/presentation/view/checkout_view.dart';
 import '../../features/checkout/presentation/view/payment_success_view.dart';
+import '../../features/coupon/presentation/view/coupon_view.dart';
 import '../../features/favorite/presentation/view/favorite_view.dart';
 import '../../features/order_tracking/presentation/view/order_tracking_view.dart';
 import '../../features/product_details/presentation/view/product_details_view.dart';
@@ -37,6 +38,8 @@ class RouteManager {
   static const String editProfile = '/editProfile';
   static const String aboutUs = '/aboutUs';
   static const String loading = '/loading';
+  static const String coupon = '/coupon';
+
 }
 
 class GenerateRoute {
@@ -58,6 +61,8 @@ class GenerateRoute {
 
       case RouteManager.onBoarding:
         return _route(const OnBoardingView());
+      case RouteManager.coupon:
+        return _route(const CouponView());
 
       case RouteManager.login:
         return _route(const LoginView());

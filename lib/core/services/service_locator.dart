@@ -5,6 +5,8 @@ import 'package:pizza_sofian_market/core/services/storage_services.dart';
 import 'package:pizza_sofian_market/core/utils/app_imports.dart';
 import '../../features/category/data/repos/category_repo.dart';
 import '../../features/category/domain/repos/category_repo_impl.dart';
+import '../../features/coupon/data/repos/coupon_repo.dart';
+import '../../features/coupon/domain/repos/coupon_repo_impl.dart';
 import '../../features/favorite/app/repos/favorite_repo_impl.dart';
 import '../../features/favorite/domain/repos/favorite_repo.dart';
 import '../../features/restaurant_status/data/repos/restaurant_status_repo.dart';
@@ -70,4 +72,8 @@ void initAppModule() {
   instance.registerLazySingleton<RestaurantStatusRepo>(
         () => RestaurantStatusRepoImpl(instance()),
   );
+  instance.registerLazySingleton<CouponRepo>(
+        () => CouponRepoImpl(instance()),
+  );
+
 }

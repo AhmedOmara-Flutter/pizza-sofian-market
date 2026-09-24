@@ -1,6 +1,5 @@
 import '../../../../core/utils/app_imports.dart';
 import 'order_item_content.dart';
-import 'order_item_image.dart';
 
 class SkeletonizerOrderItem extends StatelessWidget {
   const SkeletonizerOrderItem({super.key});
@@ -42,18 +41,15 @@ class SkeletonizerOrderItem extends StatelessWidget {
                       shape: BoxShape.circle,
                       color: AppColor.mainColor.withOpacity(.12),
                     ),
-                    child: SvgPicture.asset(
-                      Assets.assets.images.package.path,
-                      width: 30.w,
-                      height: 30.w,
-                      colorFilter: const ColorFilter.mode(
-                        AppColor.mainColor,
-                        BlendMode.srcIn,
+                    child: Text(
+                      '📦',
+                      style: TextStyle(
+                        fontSize: 30.sp,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   SizedBox(width: 10.w),
-
                   Expanded(
                     child: OrderItemContent(
                       orderId: 'omrnrijnbinrnmn',
@@ -63,12 +59,12 @@ class SkeletonizerOrderItem extends StatelessWidget {
                       products: 'jniniunin jinin',
                       price: 'rgji rnr',
                       deliveryCost: 78888,
+                      couponDiscount: 0,
                     ),
                   ),
                 ],
               ),
             ),
-
             OrderStatusBadge(
               color: AppColor.border,
               title: 'rd]hghhkjjhv',
@@ -104,7 +100,11 @@ class OrderStatusBadge extends StatelessWidget {
       ),
       child: Text(
         title,
-        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+        style: Theme
+            .of(context)
+            .textTheme
+            .titleSmall!
+            .copyWith(
           color: color.withOpacity(.9),
         ),
       ),

@@ -12,12 +12,14 @@ class OrderNotesSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(16.w),
       margin: EdgeInsets.only(top: 10.h),
+      padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(18.r),
-        border: Border.all(color: AppColor.border),
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(
+          color: AppColor.border.withOpacity(.18),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,34 +27,35 @@ class OrderNotesSection extends StatelessWidget {
           Row(
             children: [
               Container(
-                padding: EdgeInsets.all(8.r),
+                width: 36.w,
+                height: 36.w,
                 decoration: BoxDecoration(
-                  color: AppColor.mainColor.withOpacity(.12),
+                  color: AppColor.mainColor.withOpacity(.08),
                   borderRadius: BorderRadius.circular(10.r),
                 ),
-                child: Icon(
-                  Icons.edit_note_rounded,
-                  color: AppColor.mainColor,
-                  size: 22.sp,
+                alignment: Alignment.center,
+                child: Text(
+                  '📝',
+                  style: TextStyle(
+                    fontSize: 19.sp,
+                  ),
                 ),
               ),
-
-              SizedBox(width: 12.w),
-
+              SizedBox(width: 9.w),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'ملاحظات الطلب',
-                      style: StyleManager.font16Weight700,
+                      style: StyleManager.font14Weight600.copyWith(
+                        color: AppColor.textPrimary,
+                      ),
                     ),
-
-                    SizedBox(height: 2.h),
-
+                    SizedBox(height: 1.h),
                     Text(
-                      'أضف أي تعليمات خاصة بالطاهي (اختياري)',
-                      style: StyleManager.font12Weight500.copyWith(
+                      'اختياري',
+                      style: StyleManager.font11Weight400.copyWith(
                         color: AppColor.textSecondary,
                       ),
                     ),
@@ -62,14 +65,49 @@ class OrderNotesSection extends StatelessWidget {
             ],
           ),
 
-          SizedBox(height: 16.h),
+          SizedBox(height: 10.h),
 
-          CustomTextFormField(
-            controller: controller,
-            hintText:
-            'مثال: بدون سلطة، بدون بصل، زيادة جبنة، حار...',
-            prefixIcon: Icons.notes_rounded,
-            keyboardType: TextInputType.multiline,
+          Container(
+            decoration: BoxDecoration(
+              color: AppColor.background,
+              borderRadius: BorderRadius.circular(12.r),
+              border: Border.all(
+                color: AppColor.accentColor.withValues(alpha: 0.12),
+              ),
+            ),
+            child: TextField(
+              controller: controller,
+              keyboardType: TextInputType.multiline,
+              minLines: 1,
+              maxLines: 5,
+              style: StyleManager.font14Weight600.copyWith(
+                color: AppColor.textPrimary,
+              ),
+              decoration: InputDecoration(
+                hintText: 'مثال: بدون بصل، زيادة جبنة، حار...',
+                hintStyle: StyleManager.font11Weight400.copyWith(
+                  color: AppColor.textSecondary,
+                ),
+                prefixIcon: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 12.w),
+                  child: Center(
+                    widthFactor: 1,
+                    child: Text(
+                      '📋',
+                      style: TextStyle(
+                        fontSize: 20.sp,
+                      ),
+                    ),
+                  ),
+                ),
+                alignLabelWithHint: true,
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 13.w,
+                  vertical: 12.h,
+                ),
+                border: InputBorder.none,
+              ),
+            ),
           ),
         ],
       ),

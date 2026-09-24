@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../core/utils/app_color.dart';
+import '../../../../core/utils/style_manager.dart';
 
 class CustomImagePicker extends StatefulWidget {
   final ValueChanged<File?> onImagePicked;
@@ -30,73 +31,155 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
     networkImage = widget.initialImage;
   }
 
+  Future<void> _pickImage() async {
+    try {
+      final ImagePicker picker = ImagePicker();
+
+      final XFile? image = await picker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 85,
+      );
+
+      if (image == null) return;
+
+      final file = File(image.path);
+
+      setState(() {
+        imagePath = file;
+        networkImage = null;
+      });
+
+      widget.onImagePicked(file);
+    } on Exception catch (e) {
+      debugPrint('Image Picker Error: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        try {
-          final ImagePicker picker = ImagePicker();
-          final XFile? image = await picker.pickImage(
-            source: ImageSource.gallery,
-          );
+    final bool hasImage = imagePath != null || networkImage != null;
 
-          if (image != null) {
-            setState(() {
-              imagePath = File(image.path);
-              widget.onImagePicked(imagePath!);
-            });
-          }
-        } on Exception catch (e) {
-          debugPrint(e.toString());
-        }
-      },
-      child: Stack(
-        alignment: Alignment.topRight,
+    return GestureDetector(
+      onTap: _pickImage,
+      behavior: HitTestBehavior.opaque,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 220),
+        curve: Curves.easeOutCubic,
+        width: 105.w,
+        height: 115.h,
+        padding: EdgeInsets.all(7.w),
+        decoration: BoxDecoration(
+          color: AppColor.background,
+          borderRadius: BorderRadius.circular(16.r),
+          border: Border.all(
+            color: hasImage
+                ? AppColor.mainColor.withOpacity(.55)
+                : AppColor.border.withOpacity(.3),
+            width: hasImage ? 1.3 : 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: AppColor.black.withOpacity(.04),
+              blurRadius: 8.r,
+              offset: Offset(0, 3.h),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(11.r),
+                child: _buildImage(),
+              ),
+            ),
+            SizedBox(height: 6.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  hasImage ? '🔄' : '🖼️',
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                  ),
+                ),
+                SizedBox(width: 4.w),
+                Flexible(
+                  child: Text(
+                    hasImage ? 'تغيير الصورة' : 'إضافة صورة',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: StyleManager.font11Weight400.copyWith(
+                      color: AppColor.mainColor,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildImage() {
+    if (imagePath != null) {
+      return Image.file(
+        imagePath!,
+        width: double.infinity,
+        height: double.infinity,
+        fit: BoxFit.cover,
+      );
+    }
+
+    if (networkImage != null) {
+      return Image.network(
+        networkImage!,
+        width: double.infinity,
+        height: double.infinity,
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) {
+          return _emptyImage();
+        },
+      );
+    }
+
+    return _emptyImage();
+  }
+
+  Widget _emptyImage() {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      decoration: BoxDecoration(
+        color: AppColor.card,
+        borderRadius: BorderRadius.circular(11.r),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.only(
-              top: 30.h,
-              right: imagePath != null ? 5.w : 15.w,
+            width: 38.w,
+            height: 38.w,
+            decoration: BoxDecoration(
+              color: AppColor.mainColor.withOpacity(.08),
+              shape: BoxShape.circle,
             ),
-            child: imagePath != null
-                ? ClipRRect(
-              borderRadius: BorderRadius.circular(10.r),
-              child: SizedBox(
-                height: 80.h,
-                width: 80.w,
-                child: Image.file(
-                  imagePath!,
-                  fit: BoxFit.cover,
-                ),
+            alignment: Alignment.center,
+            child: Text(
+              '☁️',
+              style: TextStyle(
+                fontSize: 21.sp,
               ),
-            )
-                : networkImage != null
-                ? ClipRRect(
-              borderRadius: BorderRadius.circular(10.r),
-              child: SizedBox(
-                height: 80.h,
-                width: 80.w,
-                child: Image.network(
-                  networkImage!,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            )
-                : Container(
-              height: 80.h,
-              width: 80.w,
-              decoration: BoxDecoration(
-                color: AppColor.card,
-                borderRadius: BorderRadius.circular(10.r),
-                border: Border.all(
-                  color: AppColor.border,
-                ),
-              ),
-              child: Icon(
-                Icons.photo_outlined,
-                color: AppColor.mainColor,
-                size: 38.sp,
-              ),
+            ),
+          ),
+          SizedBox(height: 5.h),
+          Text(
+            'إثبات الدفع',
+            style: StyleManager.font11Weight400.copyWith(
+              color: AppColor.textSecondary,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],

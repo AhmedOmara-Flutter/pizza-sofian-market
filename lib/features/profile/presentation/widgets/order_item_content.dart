@@ -8,6 +8,7 @@ class OrderItemContent extends StatelessWidget {
   final String ordersTotalPrice;
   final String price;
   final double deliveryCost;
+  final double couponDiscount;
 
   const OrderItemContent({
     super.key,
@@ -18,12 +19,14 @@ class OrderItemContent extends StatelessWidget {
     required this.products,
     required this.price,
     required this.deliveryCost,
+    required this.couponDiscount,
   });
 
   @override
   Widget build(BuildContext context) {
     const primaryColor = AppColor.mainColor;
-    final total = double.parse(ordersTotalPrice) + deliveryCost;
+    final total = double.parse(ordersTotalPrice);
+    final hasCoupon = couponDiscount > 0;
 
     return Padding(
       padding: EdgeInsets.only(
@@ -34,7 +37,6 @@ class OrderItemContent extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// Order ID
           Row(
             children: [
               Text(
@@ -44,12 +46,16 @@ class OrderItemContent extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              Text(
-                '#$orderId',
-                style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  color: AppColor.textPrimary,
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
+              Expanded(
+                child: Text(
+                  '#$orderId',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    color: AppColor.textPrimary,
+                    fontSize: 11,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
@@ -57,9 +63,10 @@ class OrderItemContent extends StatelessWidget {
 
           SizedBox(height: 6.h),
 
-          /// Order Date
           Text(
             'تم الطلب : $orderDate',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.titleSmall!.copyWith(
               color: AppColor.textSecondary,
             ),
@@ -68,11 +75,13 @@ class OrderItemContent extends StatelessWidget {
           SizedBox(height: 8.h),
 
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: Text(
                   products,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: AppColor.textPrimary,
                   ),
@@ -81,10 +90,15 @@ class OrderItemContent extends StatelessWidget {
 
               SizedBox(width: 10.w),
 
-              Text(
-                price,
-                style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  color: primaryColor,
+              Flexible(
+                child: Text(
+                  price,
+                  maxLines: 2,
+                  textAlign: TextAlign.end,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    color: primaryColor,
+                  ),
                 ),
               ),
             ],
@@ -92,7 +106,6 @@ class OrderItemContent extends StatelessWidget {
 
           SizedBox(height: 12.h),
 
-          /// Bottom Info
           Container(
             padding: EdgeInsets.symmetric(
               horizontal: 12.w,
@@ -107,39 +120,48 @@ class OrderItemContent extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Icon(
-                  Icons.shopping_bag_outlined,
-                  size: 18,
-                  color: primaryColor,
+                Text(
+                  '🛍️',
+                  style: TextStyle(
+                    fontSize: 18.sp,
+                  ),
                 ),
 
                 SizedBox(width: 6.w),
 
-                Text(
-                  '$numberOfOrders منتجات',
-                  style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: primaryColor,
+                Flexible(
+                  child: Text(
+                    '$numberOfOrders منتجات',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                      color: primaryColor,
+                    ),
                   ),
                 ),
 
-                const Spacer(),
+                SizedBox(width: 8.w),
 
                 Tooltip(
                   triggerMode: TooltipTriggerMode.tap,
                   message:
-                  'الطلبات: ${ordersTotalPrice} ج.م\n'
-                      'التوصيل: ${deliveryCost.toStringAsFixed(0)} ج.م',
+                  'الإجمالي النهائي: ${total.toStringAsFixed(2)} ج.م\n'
+                      'التوصيل: ${deliveryCost.toStringAsFixed(2)} ج.م'
+                      '${hasCoupon ? '\nخصم الكوبون: ${couponDiscount.toStringAsFixed(2)} ج.م' : ''}',
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
-                        Icons.info_outline_rounded,
-                        size: 16,
-                        color: AppColor.textSecondary,
+                      Text(
+                        'ⓘ',
+                        style: TextStyle(
+                          fontSize: 16.sp,
+                          color: AppColor.textSecondary,
+                        ),
                       ),
                       SizedBox(width: 4.w),
                       Text(
                         '${total.toStringAsFixed(2)} ج.م',
+                        maxLines: 1,
                         style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           color: AppColor.mainColor,
                           fontWeight: FontWeight.bold,
@@ -147,7 +169,8 @@ class OrderItemContent extends StatelessWidget {
                       ),
                     ],
                   ),
-                )              ],
+                ),
+              ],
             ),
           ),
         ],

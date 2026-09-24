@@ -1,17 +1,17 @@
+
 import '../utils/app_imports.dart';
 
 class CustomShowDialog {
-  static Future<void> show(
-      BuildContext context, {
-        required String title,
-        required Widget content,
-        VoidCallback? cancel,
-        VoidCallback? accept,
-        Color color = AppColor.mainColor,
-        IconData flag = Icons.payment_rounded,
-        String cancelText = 'إلغاء',
-        String acceptText = 'تأكيد',
-      }) {
+  static Future<void> show(BuildContext context, {
+    required String title,
+    required Widget content,
+    VoidCallback? cancel,
+    VoidCallback? accept,
+    Color color = AppColor.mainColor,
+    String emoji = 'ⓘ',
+    String cancelText = 'إلغاء',
+    String acceptText = 'تأكيد',
+  }) {
     return showDialog(
       context: context,
       barrierDismissible: true,
@@ -33,10 +33,14 @@ class CustomShowDialog {
                   shape: BoxShape.circle,
                   color: color.withOpacity(.12),
                 ),
-                child: Icon(
-                  flag,
-                  size: 36.sp,
-                  color: color,
+                alignment: Alignment.center,
+                child: Text(
+                  emoji,
+                  style: TextStyle(
+                    fontSize: 34.sp,
+                    color: color,
+                    height: 1,
+                  ),
                 ),
               ),
 
@@ -45,7 +49,11 @@ class CustomShowDialog {
               Text(
                 title,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .labelLarge
+                    ?.copyWith(
                   color: AppColor.textPrimary,
                   fontWeight: FontWeight.bold,
                 ),
@@ -77,7 +85,11 @@ class CustomShowDialog {
                       ),
                       child: Text(
                         cancelText,
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
                           color: AppColor.textPrimary,
                           fontWeight: FontWeight.w600,
                         ),
@@ -102,7 +114,11 @@ class CustomShowDialog {
                       ),
                       child: Text(
                         acceptText,
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.w700,
                         ),
@@ -110,7 +126,8 @@ class CustomShowDialog {
                     ),
                   ),
                 ],
-              )            ],
+              ),
+            ],
           ),
         );
       },

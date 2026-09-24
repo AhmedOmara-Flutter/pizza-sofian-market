@@ -25,14 +25,16 @@ class ProfileHelpSection extends StatelessWidget {
               ),
             ),
           ),
+
           ProfileOptionsList(
             text: 'من نحن',
+            emoji: '🌐',
             onTap: () {
               FocusManager.instance.primaryFocus?.unfocus();
               Navigator.pushNamed(context, RouteManager.aboutUs);
             },
-            image: Assets.assets.images.global.path,
           ),
+
           const SizedBox(height: 50),
         ],
       ),

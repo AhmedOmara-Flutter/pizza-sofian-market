@@ -1,7 +1,10 @@
 import 'package:pizza_sofian_market/core/helper_function/custom_show_dialog.dart';
 import 'package:pizza_sofian_market/core/widgets/loading_page.dart';
+
+import '../../../../core/cubit/selected_coupon_cubit/selected_coupon_cubit.dart';
 import '../../../../core/utils/app_imports.dart';
 import '../../../cart/presentation/view_model/cart_cubit.dart';
+import '../../../coupon/presentation/view_model/coupons_cubit.dart';
 import '../../../favorite/presentation/view_model/favorite_cubit.dart';
 import '../view_model/profile_cubit.dart';
 
@@ -26,13 +29,17 @@ class ProfileSignOut extends StatelessWidget {
               content: Text(
                 'هل أنت متأكد أنك تريد تسجيل الخروج؟',
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(
                   color: AppColor.textSecondary,
                   fontSize: 14.sp,
                 ),
               ),
               color: AppColor.red,
-              flag: Icons.logout,
+              emoji: '↪',
               cancel: () => Navigator.pop(context),
               accept: () async {
                 print('1 - logout started');
@@ -46,16 +53,18 @@ class ProfileSignOut extends StatelessWidget {
                 context.read<ProfileCubit>().clear();
                 print('4 - profile cleared');
 
-                // context.read<CouponsCubit>().clear();
-                // print('5 - coupons cleared');
-                //
-                // context.read<SelectedCouponCubit>().clearCoupon();
-                // print('6 - coupon cleared');
+                context.read<CouponsCubit>().clear();
+                print('5 - coupons cleared');
+
+                context.read<SelectedCouponCubit>().clearCoupon();
+                print('6 - coupon cleared');
 
                 await instance<AuthRepo>().signOut();
                 print('7 - signed out');
 
-                context.read<MainCubit>().currentIndex = 0;
+                context
+                    .read<MainCubit>()
+                    .currentIndex = 0;
                 print('8 - index reset');
 
                 Navigator.pushNamed(
@@ -94,10 +103,15 @@ class ProfileSignOut extends StatelessWidget {
                     color: AppColor.red.withOpacity(.15),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
-                    Icons.logout_rounded,
-                    color: AppColor.red,
-                    size: 20.sp,
+                  child: Text(
+                    '↪',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: AppColor.red,
+                      fontSize: 23.sp,
+                      fontWeight: FontWeight.w700,
+                      height: 1.35,
+                    ),
                   ),
                 ),
 
@@ -106,7 +120,11 @@ class ProfileSignOut extends StatelessWidget {
                 Expanded(
                   child: Text(
                     'تسجيل الخروج',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(
                       color: AppColor.red,
                       fontSize: 13.sp,
                       fontWeight: FontWeight.w700,
@@ -114,10 +132,13 @@ class ProfileSignOut extends StatelessWidget {
                   ),
                 ),
 
-                Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: AppColor.red.withOpacity(.6),
-                  size: 14.sp,
+                Text(
+                  '›',
+                  style: TextStyle(
+                    color: AppColor.red.withOpacity(.6),
+                    fontSize: 25.sp,
+                    height: 1,
+                  ),
                 ),
               ],
             ),

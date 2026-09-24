@@ -14,6 +14,7 @@ class ProfileGeneralSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: 14.h),
+
           Text(
             'عام',
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
@@ -27,7 +28,7 @@ class ProfileGeneralSection extends StatelessWidget {
 
           ProfileOptionsList(
             text: 'الملف الشخصي',
-            image: Assets.assets.images.user.path,
+            emoji: '👤',
             onTap: () {
               FocusManager.instance.primaryFocus?.unfocus();
               Navigator.pushNamed(context, RouteManager.editProfile);
@@ -36,7 +37,7 @@ class ProfileGeneralSection extends StatelessWidget {
 
           ProfileOptionsList(
             text: 'طلباتي',
-            image: Assets.assets.images.box.path,
+            emoji: '📦',
             onTap: () {
               FocusManager.instance.primaryFocus?.unfocus();
               Navigator.pushNamed(context, RouteManager.orders);
@@ -45,10 +46,19 @@ class ProfileGeneralSection extends StatelessWidget {
 
           ProfileOptionsList(
             text: 'المفضلة',
-            image: Assets.assets.images.heart.path,
+            emoji: '❤️',
             onTap: () {
               FocusManager.instance.primaryFocus?.unfocus();
               Navigator.pushNamed(context, RouteManager.favorite);
+            },
+          ),
+
+          ProfileOptionsList(
+            text: 'الكوبون',
+            emoji: '🏷️',
+            onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+              Navigator.pushNamed(context, RouteManager.coupon);
             },
           ),
         ],

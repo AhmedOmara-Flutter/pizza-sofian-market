@@ -15,13 +15,18 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.symmetric(horizontal: 20.w),
+      padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: ElevatedButton(
-
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: color,
-          disabledBackgroundColor:AppColor.card ,
+          backgroundColor: color ?? AppColor.mainColor,
+          disabledBackgroundColor: AppColor.card,
+          foregroundColor: AppColor.white,
+          disabledForegroundColor: AppColor.textSecondary,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
         ),
         child: child,
       ),

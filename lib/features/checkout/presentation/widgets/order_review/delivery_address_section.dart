@@ -17,113 +17,209 @@ class DeliveryInfoSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: 14.h,
-        horizontal: 15.w,
-      ),
+      width: double.infinity,
+      margin: EdgeInsets.only(top: 10.h),
+      padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
         color: AppColor.card,
-        borderRadius: BorderRadius.circular(10.r),
-        border: Border.all(
-          color: AppColor.border,
-        ),
+        borderRadius: BorderRadius.circular(16.r),
+        border: Border.all(color: AppColor.border.withOpacity(.18)),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'بيانات التوصيل',
-                style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  color: AppColor.textPrimary,
+              Container(
+                width: 38,
+                height: 38,
+                decoration: BoxDecoration(
+                  color: AppColor.mainColor.withValues(alpha: 0.08),
+                  borderRadius: BorderRadius.circular(11),
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  '📍',
+                  style: TextStyle(
+                    fontSize: 20.sp,
+                  ),
                 ),
               ),
-              GestureDetector(
-                onTap: onEdit,
-                child: Row(
+
+              SizedBox(width: 9.w),
+
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SvgPicture.asset(
-                      Assets.assets.images.edit.path,
-                      color: AppColor.textSecondary,
-                      width: 18.w,
-                      height: 18.h,
-                    ),
-                    SizedBox(width: 5.w),
                     Text(
-                      'تعديل',
-                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      'بيانات التوصيل',
+                      style: StyleManager.font15Weight700.copyWith(
+                        color: AppColor.textPrimary,
+                      ),
+                    ),
+                    SizedBox(height: 1.h),
+                    Text(
+                      'عنوان توصيل الطلب',
+                      style: StyleManager.font11Weight400.copyWith(
                         color: AppColor.textSecondary,
                       ),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
 
-          SizedBox(height: 16.h),
-
-          /// المنطقة
-          Row(
-            children: [
-              Icon(
-                Icons.location_city_outlined,
-                size: 20.sp,
-                color: AppColor.textSecondary,
-              ),
-              SizedBox(width: 8.w),
-              Expanded(
-                child: Text(
-                  locationName,
-                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                    color: AppColor.textPrimary,
+              GestureDetector(
+                onTap: onEdit,
+                behavior: HitTestBehavior.opaque,
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 9.w,
+                    vertical: 6.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColor.background,
+                    borderRadius: BorderRadius.circular(9.r),
+                    border: Border.all(
+                      color: AppColor.border.withOpacity(.16),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        '✏️',
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                        ),
+                      ),
+                      SizedBox(width: 4.w),
+                      Text(
+                        'تعديل',
+                        style: StyleManager.font11Weight400.copyWith(
+                          color: AppColor.mainColor,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              /// سعر التوصيل
-              // Row(
-              //   children: [
-              //     Icon(
-              //       Icons.local_shipping_outlined,
-              //       size: 20.sp,
-              //       color: AppColor.textSecondary,
-              //     ),
-              //     SizedBox(width: 8.w),
-              //     Text(
-              //       '$deliveryCost جنيه',
-              //       style: Theme.of(context).textTheme.labelMedium!.copyWith(
-              //         color: AppColor.mainColor,
-              //         fontWeight: FontWeight.w600,
-              //       ),
-              //     ),
-              //   ],
-              // ),
             ],
           ),
 
           SizedBox(height: 12.h),
 
-          /// العنوان
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SvgPicture.asset(
-                Assets.assets.images.location.path,
-                color: AppColor.textSecondary,
-                width: 18.w,
-                height: 18.h,
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(12.w),
+            decoration: BoxDecoration(
+              color: AppColor.background,
+              borderRadius: BorderRadius.circular(13.r),
+              border: Border.all(
+                color: AppColor.border.withOpacity(.12),
               ),
-              SizedBox(width: 8.w),
-              Expanded(
-                child: Text(
-                  fullAddress,
-                  style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                    color: AppColor.textSecondary,
+            ),
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      '🏙️',
+                      style: TextStyle(
+                        fontSize: 19.sp,
+                      ),
+                    ),
+
+                    SizedBox(width: 9.w),
+
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'المنطقة',
+                            style: StyleManager.font11Weight400.copyWith(
+                              color: AppColor.textSecondary,
+                            ),
+                          ),
+                          SizedBox(height: 2.h),
+                          Text(
+                            locationName,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: StyleManager.font13Weight700.copyWith(
+                              color: AppColor.textPrimary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.w,
+                        vertical: 5.h,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColor.accentColor.withOpacity(.12),
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                      child: Text(
+                        '${deliveryCost.toStringAsFixed(0)} ج.م',
+                        style: StyleManager.font11Weight400.copyWith(
+                          color: AppColor.mainColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10.h),
+                  child: Divider(
+                    height: 1,
+                    color: AppColor.mainColor.withOpacity(.35),
                   ),
                 ),
-              ),
-            ],
+
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '🏠',
+                      style: TextStyle(
+                        fontSize: 19.sp,
+                      ),
+                    ),
+
+                    SizedBox(width: 9.w),
+
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'العنوان بالتفصيل',
+                            style: StyleManager.font11Weight400.copyWith(
+                              color: AppColor.textSecondary,
+                            ),
+                          ),
+                          SizedBox(height: 2.h),
+                          Text(
+                            fullAddress,
+                            style: StyleManager.font12Weight500.copyWith(
+                              color: AppColor.textPrimary,
+                              height: 1.4,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
