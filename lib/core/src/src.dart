@@ -16,6 +16,7 @@ import '../cubit/network_cubit/network_cubit.dart';
 import '../cubit/product_cubit/product_cubit.dart';
 import '../cubit/selected_coupon_cubit/selected_coupon_cubit.dart';
 import '../helper_function/get_user.dart';
+import '../utils/navigation_key.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: (context, child) {
           return MaterialApp(
+            navigatorKey: navigatorKey,
             debugShowCheckedModeBanner: false,
             locale: const Locale('ar'),
             supportedLocales: S.delegate.supportedLocales,
