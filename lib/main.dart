@@ -17,8 +17,8 @@ void main() async {
   // final forceUpdate =
   // await appUpdateService.isForceUpdateRequired();
   await Supabase.initialize(
-    url: 'https://cvjjkzcisgbwgxvyiikx.supabase.co',
-    anonKey: 'sb_publishable_EpubB_aTdpc4UY7EjRvTEg_ujLCSIJd',
+    url: 'https://oibjkvqmjskoxwnibcqn.supabase.co',
+    anonKey: 'sb_publishable_HC_WTlQooAt4rmPpeYZCXQ_wRQajfhP',
   );
   await CacheHelper.init();
   Constants.onBoarding = await CacheHelper.getData(key: 'onBoarding') ?? false;
