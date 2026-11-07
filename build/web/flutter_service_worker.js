@@ -102,7 +102,7 @@ const RESOURCES = {".vercel/project.json": "9f9125869adfa52282df90e318c72db8",
 "favicon.png": "a20b0a80b813b5af328ec2fd22a73ba6",
 "firebase-messaging-sw.js": "8ade82ba477e64a7f8e8ddfe0763fafc",
 "flutter.js": "24bc71911b75b5f8135c949e27a2984e",
-"flutter_bootstrap.js": "15d327929874fe3ae607ee675cb30b5d",
+"flutter_bootstrap.js": "43e4bfcac33175c35eba11beddc63b0b",
 "icons/Icon-192.png": "8841940225df84031b587156cb679f80",
 "icons/Icon-512.png": "8d31221be737f793984a96e92a5c3512",
 "icons/Icon-maskable-192.png": "8841940225df84031b587156cb679f80",
@@ -111,7 +111,7 @@ const RESOURCES = {".vercel/project.json": "9f9125869adfa52282df90e318c72db8",
 "/": "ae8bd73df6a6e2a28351fe4cf9bbfbe4",
 "main.dart.js": "a7b7f7b1dace2d5334a73615a39e87ab",
 "manifest.json": "1e82160d599b901b1198d3ebfa4ca61b",
-"vercel.json.dart": "b03c98a2eaefbe91ef5af61108b730d7",
+"vercel.json": "22d5229de9f115aaae41e80c68666b2d",
 "version.json": "0d5f9b20cbbd373edb80fd4f3357a501"};
 // The application shell files that are downloaded before a service worker can
 // start.

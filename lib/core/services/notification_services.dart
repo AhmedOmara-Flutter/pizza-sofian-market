@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -8,14 +10,17 @@ import 'package:pizza_sofian_market/core/utils/navigation_key.dart';
 import 'package:pizza_sofian_market/core/utils/route_manager.dart';
 
 class NotificationServices {
+  // TODO: حط مفتاح VAPID هنا
+  // Firebase Console > Project settings > Cloud Messaging > Web configuration > Generate key pair
+  static const String _vapidKey = 'PUT_YOUR_VAPID_KEY_HERE';
+
   static final FirebaseMessaging _firebaseMessaging =
       FirebaseMessaging.instance;
 
   static final FlutterLocalNotificationsPlugin _local =
   FlutterLocalNotificationsPlugin();
 
-  static const AndroidNotificationChannel _channel =
-  AndroidNotificationChannel(
+  static const AndroidNotificationChannel _channel = AndroidNotificationChannel(
     'pizza_sofian_channel',
     'Pizza Sofian Notifications',
     description: 'Notifications for Pizza Sofian',
@@ -23,11 +28,15 @@ class NotificationServices {
     playSound: true,
   );
 
+  static bool _listenersStarted = false;
+
   // =========================================================
-  // Local Notification
+  // Local Notification (موبايل فقط)
   // =========================================================
 
   static Future<void> initLocal() async {
+    if (kIsWeb) return; // flutter_local_notifications مش بتدعم الويب
+
     const AndroidInitializationSettings androidSettings =
     AndroidInitializationSettings('@mipmap/ic_launcher');
 
@@ -38,21 +47,12 @@ class NotificationServices {
     await _local.initialize(
       settings,
       onDidReceiveNotificationResponse: (response) {
-        print('🔔 Local notification clicked');
-        print('📦 Payload: ${response.payload}');
-
-        if (response.payload == null ||
-            response.payload!.isEmpty) {
-          return;
-        }
-
+        if (response.payload == null || response.payload!.isEmpty) return;
         try {
-          final Map<String, dynamic> data =
-          jsonDecode(response.payload!);
-
+          final Map<String, dynamic> data = jsonDecode(response.payload!);
           _handleNotificationNavigation(data);
         } catch (e) {
-          print('❌ Notification payload error: $e');
+          debugPrint('❌ Notification payload error: $e');
         }
       },
     );
@@ -62,7 +62,6 @@ class NotificationServices {
         AndroidFlutterLocalNotificationsPlugin>();
 
     await android?.createNotificationChannel(_channel);
-
     await android?.requestNotificationsPermission();
   }
 
@@ -70,11 +69,18 @@ class NotificationServices {
   // Show Notification - Foreground
   // =========================================================
 
-  static Future<void> showNotification(
-      RemoteMessage message,
-      ) async {
-    final RemoteNotification? notification =
-        message.notification;
+  static Future<void> showNotification(RemoteMessage message) async {
+    final RemoteNotification? notification = message.notification;
+
+    // على الويب: نعرض شريط تنبيه جوه التطبيق
+    if (kIsWeb) {
+      _showInAppBanner(
+        notification?.title ?? 'إشعار جديد',
+        notification?.body ?? '',
+        message.data,
+      );
+      return;
+    }
 
     final AndroidNotificationDetails androidDetails =
     AndroidNotificationDetails(
@@ -96,9 +102,35 @@ class NotificationServices {
       notification?.title ?? 'إشعار جديد',
       notification?.body ?? '',
       details,
-
-      // مهم جدًا
       payload: jsonEncode(message.data),
+    );
+  }
+
+  static void _showInAppBanner(
+      String title,
+      String body,
+      Map<String, dynamic> data,
+      ) {
+    final context = navigatorKey.currentContext;
+    if (context == null) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 6),
+        behavior: SnackBarBehavior.floating,
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+            if (body.isNotEmpty) Text(body),
+          ],
+        ),
+        action: SnackBarAction(
+          label: 'عرض',
+          onPressed: () => _handleNotificationNavigation(data),
+        ),
+      ),
     );
   }
 
@@ -106,59 +138,35 @@ class NotificationServices {
   // Notification Navigation
   // =========================================================
 
-  static void _handleNotificationNavigation(
-      Map<String, dynamic> data,
-      ) {
-    print('🚀 Notification navigation');
-    print('📦 Data: $data');
-
+  static void _handleNotificationNavigation(Map<String, dynamic> data) {
     final String? screen = data['screen']?.toString();
 
-    if (screen == null || screen.isEmpty) {
-      print('⚠️ No screen found');
-      return;
-    }
+    if (screen == null || screen.isEmpty) return;
 
     switch (screen) {
       case 'product':
-        final String? productId =
-        data['productId']?.toString();
-
-        if (productId == null || productId.isEmpty) {
-          print('⚠️ productId is missing');
-          return;
-        }
-
+        final String? productId = data['productId']?.toString();
+        if (productId == null || productId.isEmpty) return;
         navigatorKey.currentState?.pushNamed(
           RouteManager.productDetails,
           arguments: productId,
         );
-
         break;
 
       case 'orders':
-        navigatorKey.currentState?.pushNamed(
-          RouteManager.orders,
-        );
-
+        navigatorKey.currentState?.pushNamed(RouteManager.orders);
         break;
 
       case 'coupon':
-        navigatorKey.currentState?.pushNamed(
-          RouteManager.coupon,
-        );
-
+        navigatorKey.currentState?.pushNamed(RouteManager.coupon);
         break;
 
       case 'home':
-        navigatorKey.currentState?.pushNamed(
-          RouteManager.home,
-        );
-
+        navigatorKey.currentState?.pushNamed(RouteManager.home);
         break;
 
       default:
-        print('⚠️ Unknown notification screen: $screen');
+        debugPrint('⚠️ Unknown notification screen: $screen');
     }
   }
 
@@ -166,37 +174,57 @@ class NotificationServices {
   // Save FCM Token
   // =========================================================
 
+  static Future<void> _saveToken(String token) async {
+    final User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      debugPrint('⚠️ No logged in user');
+      return;
+    }
+    await instance<DatabaseServices>().updateData(
+      path: 'users',
+      docId: user.uid,
+      data: {'fcmToken': token},
+    );
+  }
+
   static Future<void> saveFcmToken() async {
     try {
-      final User? user =
-          FirebaseAuth.instance.currentUser;
-
-      if (user == null) {
-        print('⚠️ No logged in user');
-        return;
-      }
-
-      final String? token =
-      await _firebaseMessaging.getToken();
-
-      if (token == null || token.isEmpty) {
-        print('⚠️ FCM Token is null');
-        return;
-      }
-
-      await instance<DatabaseServices>().updateData(
-        path: 'users',
-        docId: user.uid,
-        data: {
-          'fcmToken': token,
-        },
+      final String? token = await _firebaseMessaging.getToken(
+        vapidKey: kIsWeb ? _vapidKey : null,
       );
 
-      print('======================================');
-      print('✅ FCM TOKEN SAVED');
-      print('======================================');
+      if (token == null || token.isEmpty) {
+        debugPrint('⚠️ FCM Token is null');
+        return;
+      }
+
+      await _saveToken(token);
+      debugPrint('✅ FCM TOKEN SAVED');
     } catch (e) {
-      print('❌ Error saving FCM Token: $e');
+      debugPrint('❌ Error saving FCM Token: $e');
+    }
+  }
+
+  // =========================================================
+  // زرار "فعّل الإشعارات" (مهم للويب وللـ iPhone)
+  // لازم يتنده من ضغطة زرار
+  // =========================================================
+
+  static Future<bool> enableFromButton() async {
+    try {
+      final NotificationSettings s = await _firebaseMessaging
+          .requestPermission(alert: true, badge: true, sound: true);
+
+      if (s.authorizationStatus != AuthorizationStatus.authorized &&
+          s.authorizationStatus != AuthorizationStatus.provisional) {
+        return false;
+      }
+
+      await saveFcmToken();
+      return true;
+    } catch (e) {
+      debugPrint('❌ enableFromButton error: $e');
+      return false;
     }
   }
 
@@ -205,82 +233,54 @@ class NotificationServices {
   // =========================================================
 
   static Future<void> initFirebase() async {
-    await _firebaseMessaging.requestPermission(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+    if (kIsWeb) {
+      // على الويب: متطلبش الإذن هنا (المتصفح بيرفض من غير ضغطة)
+      // لو العميل سمح قبل كده، نحدّث التوكن
+      final NotificationSettings s =
+      await _firebaseMessaging.getNotificationSettings();
+      if (s.authorizationStatus == AuthorizationStatus.authorized) {
+        await saveFcmToken();
+      }
+    } else {
+      await _firebaseMessaging.requestPermission(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
+      // subscribeToTopic مش مدعومة على الويب
+      await _firebaseMessaging.subscribeToTopic('all_users');
+      await saveFcmToken();
+    }
 
-    await _firebaseMessaging.subscribeToTopic(
-      'all_users',
-    );
-
-    await saveFcmToken();
+    if (_listenersStarted) return;
+    _listenersStarted = true;
 
     // Token Refresh
-    _firebaseMessaging.onTokenRefresh.listen(
-          (String token) async {
-        try {
-          final User? user =
-              FirebaseAuth.instance.currentUser;
-
-          if (user == null) {
-            print('⚠️ No logged in user');
-            return;
-          }
-
-          await instance<DatabaseServices>().updateData(
-            path: 'users',
-            docId: user.uid,
-            data: {
-              'fcmToken': token,
-            },
-          );
-
-          print('🔄 FCM Token updated');
-        } catch (e) {
-          print('❌ Error updating FCM Token: $e');
-        }
-      },
-    );
+    _firebaseMessaging.onTokenRefresh.listen((String token) async {
+      try {
+        await _saveToken(token);
+      } catch (e) {
+        debugPrint('❌ Error updating FCM Token: $e');
+      }
+    });
 
     // Foreground
-    FirebaseMessaging.onMessage.listen(
-          (RemoteMessage message) async {
-        print('📩 FOREGROUND MESSAGE');
-        print('Title: ${message.notification?.title}');
-        print('Body: ${message.notification?.body}');
-        print('Data: ${message.data}');
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      if (message.notification != null) {
+        await showNotification(message);
+      }
+    });
 
-        if (message.notification != null) {
-          await showNotification(message);
-        }
-      },
-    );
+    // Background -> opened
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      _handleNotificationNavigation(message.data);
+    });
 
-    // Background
-    FirebaseMessaging.onMessageOpenedApp.listen(
-          (RemoteMessage message) {
-        print('🔔 Notification opened from background');
-        print('Data: ${message.data}');
-
-        _handleNotificationNavigation(
-          message.data,
-        );
-      },
-    );
-
-    // Terminated
+    // Terminated -> opened
     final RemoteMessage? initialMessage =
     await _firebaseMessaging.getInitialMessage();
-
     if (initialMessage != null) {
-      print('🔔 App opened from terminated state');
-      print('Data: ${initialMessage.data}');
-
-      _handleNotificationNavigation(
-        initialMessage.data,
-      );
+      _handleNotificationNavigation(initialMessage.data);
     }
   }
 }
