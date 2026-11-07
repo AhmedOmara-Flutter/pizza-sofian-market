@@ -1,11 +1,11 @@
 {
-    "name": "pizza_sofian_market",
-    "short_name": "pizza_sofian_market",
+    "name": "PIZZA Sofian",
+    "short_name": "PIZZA Sofian",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#181818",
+    "theme_color": "#181818",
+    "description": "PIZZA Sofian - اطلب بيتزا دلوقتي",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

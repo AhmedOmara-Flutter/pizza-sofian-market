@@ -17,29 +17,17 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -59,4 +47,42 @@ class DefaultFirebaseOptions {
     projectId: 'pizza-sofian-resturant',
     storageBucket: 'pizza-sofian-resturant.firebasestorage.app',
   );
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyBihudU8RmiyQkyGUlL5EIgn9ac7LgezEk',
+    appId: '1:320713117439:web:4ffabc1085e0f2b49486ca',
+    messagingSenderId: '320713117439',
+    projectId: 'pizza-sofian-resturant',
+    authDomain: 'pizza-sofian-resturant.firebaseapp.com',
+    storageBucket: 'pizza-sofian-resturant.firebasestorage.app',
+    measurementId: 'G-D9HJVNYNYD',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyDwb6KJN8twaAg7VIhk-D5uPU389AXZ2E4',
+    appId: '1:320713117439:ios:6e38e054ebd290aa9486ca',
+    messagingSenderId: '320713117439',
+    projectId: 'pizza-sofian-resturant',
+    storageBucket: 'pizza-sofian-resturant.firebasestorage.app',
+    iosBundleId: 'com.example.pizzaSofianMarket',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyDwb6KJN8twaAg7VIhk-D5uPU389AXZ2E4',
+    appId: '1:320713117439:ios:6e38e054ebd290aa9486ca',
+    messagingSenderId: '320713117439',
+    projectId: 'pizza-sofian-resturant',
+    storageBucket: 'pizza-sofian-resturant.firebasestorage.app',
+    iosBundleId: 'com.example.pizzaSofianMarket',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyBihudU8RmiyQkyGUlL5EIgn9ac7LgezEk',
+    appId: '1:320713117439:web:4ffabc1085e0f2b49486ca',
+    messagingSenderId: '320713117439',
+    projectId: 'pizza-sofian-resturant',
+    authDomain: 'pizza-sofian-resturant.firebaseapp.com',
+    storageBucket: 'pizza-sofian-resturant.firebasestorage.app',
+    measurementId: 'G-D9HJVNYNYD',
+  );
 }
+
